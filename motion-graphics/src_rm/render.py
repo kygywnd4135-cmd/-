@@ -2,6 +2,8 @@ import sys, os; sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from lib import *
 from lib import _yy,_xx
 import opening as OP
+from crest_fx import load_crest,draw_crest
+CREST=load_crest(S+'rm/crest.png')
 from opening import Cv,emblem,glitch,stage,eq_bars,rrect,note,NOTES,PINK,GREEN,WHT,PINK_D,GRN_D
 from PIL import Image, ImageDraw, ImageFont
 import subprocess, multiprocessing as mp
@@ -92,10 +94,7 @@ def render(f):
         fr,fa,fg=frame_neon(tr-0.5,env); img+=cv2.GaussianBlur(fg,(0,0),10)*0.8; OP.over(img,fr,fa)
         g=np.clip((_yy-FH*0.70)/(FH*0.30),0,1)[...,None]**1.4
         img*=1-0.72*g*eout(tr/1.2)
-        ke=eout((tr-1.0)/0.8)
-        if ke>0:
-            e2=Cv(); g2=Cv(); emblem(e2,(FW/2,150),64*(1+0.08*env),ke,th=3,fill=True); emblem(g2,(FW/2,150),64,ke,th=8)
-            r2,a2=e2.f(); gg,_=g2.f(); img+=cv2.GaussianBlur(gg,(0,0),8)*0.9; OP.over(img,r2,a2)
+        draw_crest(img,CREST,tr,(0.20,1.0,0.70),size=205,cy=150)
         kt=eout((tr-1.3)/0.5,2)
         if kt>0:
             band=band_at(text_plain('RAMUNE',F_EN),1590)

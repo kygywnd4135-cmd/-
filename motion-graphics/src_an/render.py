@@ -2,6 +2,8 @@ import sys, os; sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from lib import *
 from lib import _yy,_xx
 import opening as OP
+from crest_fx import load_crest,draw_crest
+CREST=load_crest(S+'an/crest.png')
 from opening import Canvas,LineLayer,Cam,Cluster,floret,leaf,star4,magic_circle,ob,BLUES,TEAL,TEAL_L,TEAL_D,PALE
 from PIL import Image, ImageDraw, ImageFont
 import subprocess, multiprocessing as mp
@@ -146,17 +148,8 @@ def render(f):
         fm=frame_layer(tr-0.5); img+=fm[...,None]*FRAME_C*0.95+cv2.GaussianBlur(fm,(0,0),4)[...,None]*np.array(TEAL,np.float32)*0.9
         g=np.clip((_yy-FH*0.68)/(FH*0.32),0,1)[...,None]**1.4
         img*=1-0.74*g*eout(tr/1.2)
-        # top emblem: floret in a ring
-        ke=eout((tr-1.0)/0.8)
-        if ke>0:
-            em=Canvas(); C=np.array([FW/2,150])
-            em.circle(C,62*ke,PALE,1); em.circle(C,70*ke,TEAL_L,1)
-            for k in range(8):
-                a=math.radians(45*k+20*tr); p=C+np.array([math.cos(a),math.sin(a)])*70*ke
-                d=4*ke; em.poly([p+[0,-d],p+[d,0],p+[0,d],p+[-d,0]],TEAL_L)
-            floret(em,SCR,FW/2,150,46*ob((tr-1.0)/0.6),0.25*tr,BLUES[3],1.0,1.1)
-            la=em.rgb.astype(np.float32)/255; a=em.a.astype(np.float32)/255
-            img[...]=img*(1-a[...,None]*ke)+la*ke; img+=cv2.GaussianBlur(la,(0,0),8)*0.8*ke
+        # top emblem: Anelia's crest
+        draw_crest(img,CREST,tr,(0.60,0.50,1.0),size=230,cy=165)
         # title
         kt=eout((tr-1.3)/1.1,3)
         if kt>0:

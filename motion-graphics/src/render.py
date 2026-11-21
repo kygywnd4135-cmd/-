@@ -2,6 +2,8 @@ import sys, os; sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from lib import *
 from lib import _yy,_xx
 import opening as OP
+from crest_fx import load_crest,draw_crest
+CREST=load_crest(S+'cut/crest.png')
 from PIL import Image, ImageDraw, ImageFont
 import subprocess, multiprocessing as mp
 from scipy import ndimage as nd
@@ -164,13 +166,8 @@ def render(f):
         # bottom dark gradient for title legibility
         g=np.clip((_yy-FH*0.70)/(FH*0.30),0,1)[...,None]**1.4
         img[...,:3]*=1-0.72*g*eout(tr/1.2)
-        # top emblem
-        ke=eout((tr-1.0)/0.8)
-        if ke>0:
-            ef=np.zeros((FH,FW),np.float32); el=np.zeros((FH,FW),np.float32)
-            cam=(FW/2,150,70,math.radians(10*(t-T5)))
-            OP.draw_flake(cam,1.15*ke,0,ef,el); Le=OP.shade_flake(ef,el,cam,1.2)
-            add(img,cv2.GaussianBlur(Le,(0,0),8),1.0*ke); add(img,Le,ke)
+        # top emblem: Nea's crest
+        draw_crest(img,CREST,tr,(0.95,0.75,0.40),size=230,cy=165)
         # title
         kt=eout((tr-1.3)/1.1,3)
         if kt>0:

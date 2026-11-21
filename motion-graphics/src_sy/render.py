@@ -2,6 +2,8 @@ import sys, os; sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from lib import *
 from lib import _yy,_xx
 import opening as OP
+from crest_fx import load_crest,draw_crest
+CREST=load_crest(S+'sy/crest.png')
 from opening import Cv,over as OV,ribbon,curl_spine,RIB_TONES,MIST,mist_band,dots,bamboo_layer,background,TEAL,TEAL_L,RED,RED_L,mix
 from PIL import Image, ImageDraw, ImageFont
 import subprocess, multiprocessing as mp
@@ -101,10 +103,7 @@ def render(f):
         fr,fa,fg=frame_layer(tr-0.5); img+=cv2.GaussianBlur(fg,(0,0),8)*0.6; OV(img,fr,fa)
         g=np.clip((_yy-FH*0.68)/(FH*0.32),0,1)[...,None]**1.4
         img*=1-0.78*g*eout(tr/1.2)
-        ke=eout((tr-1.0)/0.8)
-        if ke>0:
-            em=Cv(); leaf_emblem(em,(FW/2,150),62,ke,t); er,ea=em.f()
-            img+=cv2.GaussianBlur(er,(0,0),8)*0.6*ke; OV(img,er,ea*ke)
+        draw_crest(img,CREST,tr,(1.0,0.30,0.25),size=230,cy=165)
         kt=eout((tr-1.3)/1.1,3)
         if kt>0:
             band=band_at(text_spaced('SONYU',F_EN,int(70-40*kt)),1590)

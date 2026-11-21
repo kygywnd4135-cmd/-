@@ -86,7 +86,7 @@ def glints(t,M,pts,col,cv,size=38):
 BGCAM=Cam(FW/2,FH*0.5-60,1.0,0.0)
 _cr=np.asarray(Image.open(S+'jn/crest.png').convert('RGBA')).astype(np.float32)/255
 _cr[...,:3]*=_cr[...,3:4]          # premultiply
-CREST=_cr; CREST_SIZE=190; CREST_Y=160
+CREST=_cr; CREST_SIZE=230; CREST_Y=165
 def render(f):
     t=f/FPS
     if t<T2: return to8(OP.opening(t,T1,T2))
