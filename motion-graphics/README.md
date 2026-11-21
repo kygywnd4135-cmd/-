@@ -49,3 +49,21 @@ python3 src/render.py
 ```
 
 특정 프레임만 미리보기: `python3 src/render.py 120 300` → `output/pv_120.png` …
+
+## 음악 붙이기
+
+Suno로 만든 곡은 `music/<이름>_suno.mp3`에 두고, 12초로 잘라 끝을 잔향으로 자연스럽게 마무리한 뒤 영상에 붙입니다.
+
+```bash
+python3 src_audio/fit_music.py music/jin_suno.mp3 music/jin_12s.wav 0.1
+```
+
+```bash
+ffmpeg -i <무음 영상> -i music/jin_12s.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -af loudnorm=I=-15:TP=-1.0 -shortest output/jin_motion.mp4
+```
+
+세 번째 인자는 곡에서 잘라 쓸 시작 위치(초)입니다. 곡의 분위기 전환이 캐릭터 등장(약 4초)에 맞도록 고릅니다.
+
+| 캐릭터 | 음악 | 시작 위치 |
+|---|---|---|
+| 진 | `music/jin_suno.mp3` → `music/jin_12s.m4a` | 0.1초 |
