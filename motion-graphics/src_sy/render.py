@@ -55,9 +55,8 @@ def frame_layer(tr):
     k=eout((tr-0.5)/0.6)
     if k>0:
         for (x,y,sx_,sy_) in ((38,38,1,1),(FW-38,38,-1,1),(38,FH-38,1,-1),(FW-38,FH-38,-1,-1)):
-            # little curl ornament in each corner
-            sp=np.array([(x+sx_*20,y+sy_*20),(x+sx_*60,y+sy_*24),(x+sx_*100,y+sy_*40)])
-            ribbon(cv,curl_spine(sp,60*k+1,1.2,sx_*sy_),16*k+1,RIB_TONES[1],outline=2,side=sx_*sy_)
+            d=13*k; cv.poly([(x,y-d),(x+d,y),(x,y+d),(x-d,y)],TEAL_L)
+            L=80*k; cv.lines([(x+sx_*24,y+sy_*14),(x+sx_*(24+L),y+sy_*14)],RED_L,2); cv.lines([(x+sx_*14,y+sy_*24),(x+sx_*14,y+sy_*(24+L))],RED_L,2)
     r,a=cv.f(); g,_=gl.f(); return r,a,g
 def leaf_emblem(cv,C,s,k,t):
     """bamboo emblem: three stalk segments + leaves inside a ring"""
@@ -99,7 +98,6 @@ def render(f):
     over(img,L)
     if fin:
         tr=t-T5
-        fc=Cv(); dots(fc,t); fr_,fa_=fc.f(); OV(img,fr_,fa_*0.9)
         fr,fa,fg=frame_layer(tr-0.5); img+=cv2.GaussianBlur(fg,(0,0),8)*0.6; OV(img,fr,fa)
         g=np.clip((_yy-FH*0.68)/(FH*0.32),0,1)[...,None]**1.4
         img*=1-0.78*g*eout(tr/1.2)

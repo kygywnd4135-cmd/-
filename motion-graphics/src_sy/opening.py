@@ -218,7 +218,7 @@ def opening(t,T_dive,T_cut):
     cx,cy=FW/2,FH*0.5
     # phase: mist (0-0.9), grass push (0.4-1.4), forest reveal (1.1-2.1), slash (2.15-2.7), shatter/out
     forest_k=eout((t-1.05)/0.7)
-    img=background(t,moon_k=eout((t-0.9)/0.8),zoom=1+0.15*t)
+    img=background(t,moon_k=eout((t-0.2)/1.0),zoom=1+0.15*t)
     zf=1.0+0.08*t
     shake=np.array([math.sin(t*97)*12,math.cos(t*83)*10])*max([math.exp(-max(0,t-s['t'])*14) if t>=s['t'] else 0 for s in SLASHES]+[0])
     # bamboo forest (3 layers), rendered into one layer for shattering
@@ -229,19 +229,12 @@ def opening(t,T_dive,T_cut):
             # rise in from below
             dy=int((1-forest_k)*FH*0.6*par)
             if dy: r=np.roll(r,dy,0); a=np.roll(a,dy,0); r[:dy]=0; a[:dy]=0
-            if L==0:   # mist between far and mid layer
-                mr,ma=mist_layer(t,cx,cy,1.0,1.2,0,0.55,range(0,6)); over(r,mr,ma); a=np.maximum(a,ma)
             fr=r+fr*(1-a[...,None]); fa=a+fa*(1-a)
         fa*=forest_k; fr*=forest_k
         if t>=T_SLASH: fr,fa=shatter(fr,fa,t)
         if t>T_SLASH: fa*=1-clamp((t-2.95)/0.45); fr*=1-clamp((t-2.95)/0.45)
     over(img,fr,fa,1.0) if False else None
     img=fr+img*(1-fa[...,None])
-    # mist in front of the forest; swirls, then blasts outward on the slashes
-    spread=1.5*eio(clamp((t-1.15)/0.6))+(eout((t-T_SLASH)/0.6)*1.6 if t>T_SLASH else 0.0)
-    mr,ma=mist_layer(t,cx,cy,eout(t/1.0),1.0+0.25*t,spread,0.95*(1-clamp((t-3.0)/0.6)),range(6,18))
-    over(img,mr,ma)
-    dc=Cv(); dots(dc,t); dr,da=dc.f(); over(img,dr,da*clamp(t/0.6)*(1-clamp((t-3.1)/0.4)))
     # grass we push through
     if t<1.6:
         gr,ga=grass_layer(t,eio(clamp((t-0.35)/1.15)))
@@ -259,15 +252,6 @@ def opening(t,T_dive,T_cut):
     if t>2.85:
         k=clamp((t-2.85)/(T_cut-2.85))
         ang=np.arctan2(_yy-cy,_xx-cx); rad=np.hypot(_xx-cx,_yy-cy)
-        vc=Cv()
-        for i in range(8):
-            th0=i*math.pi/4+t*2.2*(1+k); n=34; u=np.linspace(0,1,n)
-            rr=(900-700*u)*(1.0-0.55*k)+40
-            th=th0+u*2.4
-            sp=np.stack([cx+np.cos(th)*rr,cy+np.sin(th)*rr],1)
-            tone=RIB_TONES[i%5] if i%3 else ((0.45,0.03,0.08),(1.0,0.45,0.42),(0.85,0.15,0.20))
-            ribbon(vc,curl_spine(sp,140,1.2,1),70*(1-0.3*k),tone,outline=4,side=1)
-        vr,va=vc.f(); over(img,vr,va*clamp(k*3))
         img+=np.exp(-rad/(80+700*k**2))[...,None]*np.array((1.0,0.85,0.85),np.float32)*(0.4+2.2*k**2)
     vig=np.clip(1-(np.hypot((_xx-FW/2)/FW,(_yy-FH/2)/FH)**2)*1.15,0.3,1)[...,None]; img*=vig
     img+=(clamp((t-(T_cut-0.18))/0.18)**2*1.3)*np.array([1.0,0.92,0.92],np.float32)
