@@ -39,10 +39,10 @@ def shot_char(t):
         fx,fy=700+230*e,620-440*e; sc=1.30-0.06*e+0.05*(1-eout(u*4)); rot=10-5*e; cy=FH*0.5
     elif t<T5: # face under the hat
         u=(t-T4)/(T5-T4); e=eio(u)
-        fx,fy=690,250+30*e; sc=1.55-0.20*e+0.05*(1-eout(u*4)); rot=-2+2*e; cy=FH*0.47
+        fx,fy=700,250+30*e; sc=1.55-0.20*e+0.05*(1-eout(u*4)); rot=-2+2*e; cy=FH*0.47
     else:
         u=(t-T5)/(DUR-T5-0.6); e=eout(u,3)
-        fx,fy=690+(616-690)*e,330+(816-330)*e; sc=1.05+(0.62-1.05)*e; rot=0; cy=FH*0.5+(1215-FH*0.5)*e
+        fx,fy=700+(705-700)*e,330+(816-330)*e; sc=1.05+(0.62-1.05)*e; rot=0; cy=FH*0.5+(1215-FH*0.5)*e
     return affine(FW/2,cy,sc,rot,fx*K,fy*K)
 def frame_layer(tr):
     cv=Cv(); gl=Cv(); p=eout(tr/1.1,3)
@@ -94,21 +94,12 @@ def render(f):
             dy=int((1-k)*FH*0.5*(1+L*0.4))
             if dy: r=np.roll(r,dy,0); a=np.roll(a,dy,0); r[:dy]=0; a[:dy]=0
             img=r*0.8+img*(1-a[...,None]*0.8)
-        mc=Cv()
-        for i in FIN_MIST: mist_band(mc,FW/2,FH*0.62,MIST[i],t,eout(tr/1.0),1.05,0.15)
-        mr,ma=mc.f(); OV(img,mr,ma*0.85)
-    else:
-        mc=Cv()
-        for i in (2,5,9,13): mist_band(mc,FW/2,FH/2,MIST[i],t,1.0,1.3,0.4)
-        mr,ma=mc.f(); OV(img,mr,ma*0.55)
     L=place_M(ch,M)
     img+=cv2.GaussianBlur(L[...,3],(0,0),26)[...,None]*np.array(RED,np.float32)*0.10
     over(img,L)
     if fin:
         tr=t-T5
-        fc=Cv()
-        for i in (1,8,14): mist_band(fc,FW/2,FH*0.80,MIST[i],t,eout((tr-0.2)/0.9),1.2,0.35)
-        dots(fc,t); fr_,fa_=fc.f(); OV(img,fr_,fa_*0.9)
+        fc=Cv(); dots(fc,t); fr_,fa_=fc.f(); OV(img,fr_,fa_*0.9)
         fr,fa,fg=frame_layer(tr-0.5); img+=cv2.GaussianBlur(fg,(0,0),8)*0.6; OV(img,fr,fa)
         g=np.clip((_yy-FH*0.68)/(FH*0.32),0,1)[...,None]**1.4
         img*=1-0.78*g*eout(tr/1.2)
