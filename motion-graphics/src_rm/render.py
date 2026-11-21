@@ -32,8 +32,7 @@ def shot_char(t):
     else:
         u=(t-T5)/(DUR-T5-0.6); e=eout(u,3)
         fx,fy=605+(616-605)*e,420+(816-420)*e; sc=1.05+(0.60-1.05)*e; rot=0; cy=FH*0.5+(1235-FH*0.5)*e
-    sc*=1+0.025*b
-    return affine(FW/2,cy-16*b,sc,rot,fx*K,fy*K)
+    return affine(FW/2,cy,sc,rot,fx*K,fy*K)
 def frame_neon(tr,env):
     cv=Cv(); gl=Cv(); p=eout(tr/1.1,3)
     for inset,col,th in ((34,PINK,4),(50,GREEN,2)):

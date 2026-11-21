@@ -24,9 +24,9 @@ def displacement(t, amp=1.0):
     b=beat_env(t)
     sL=0.70*np.sin(w*t+kx)+0.30*np.sin(2*w*t+1.3*kx+0.5)
     sR=0.70*np.sin(w*t-k-0.6)+0.30*np.sin(2*w*t-1.4*k+1.9)
-    A=26*amp*(1+0.35*b)
+    A=26*amp
     dx=A*(WL*sL+WR*sR)
-    dy=A*(WL*0.6*np.cos(w*t+kx)+WR*0.3*np.cos(w*t-k-0.6))-18*amp*b*(WL+WR)
+    dy=A*(WL*0.6*np.cos(w*t+kx)+WR*0.3*np.cos(w*t-k-0.6))
     dx+=14*amp*WTIE*np.sin(2*math.pi*0.9*t-GX/SW*10)
     dy+=8*amp*WTIE*np.cos(2*math.pi*1.1*t-GX/SW*8)
     return dx,dy
