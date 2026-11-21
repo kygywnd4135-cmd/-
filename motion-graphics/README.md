@@ -58,6 +58,8 @@ Suno로 만든 곡은 `music/<이름>_suno.mp3`에 두고, 12초로 잘라 끝�
 python3 src_audio/fit_music.py music/jin_suno.mp3 music/jin_12s.wav 0.1
 ```
 
+곡 중간에서 시작할 때는 여섯 번째 인자로 페이드인 길이를 줍니다: `fit_music.py <곡> <출력> <시작> 12 9.4 0.6`
+
 ```bash
 ffmpeg -i <무음 영상> -i music/jin_12s.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -af loudnorm=I=-15:TP=-1.0 -shortest output/jin_motion.mp4
 ```
@@ -67,3 +69,6 @@ ffmpeg -i <무음 영상> -i music/jin_12s.wav -map 0:v -map 1:a -c:v copy -c:a 
 | 캐릭터 | 음악 | 시작 위치 |
 |---|---|---|
 | 진 | `music/jin_suno.mp3` → `music/jin_12s.m4a` | 0.1초 |
+| 네아 | `music/nea_suno.mp3` (Frost Waltz) → `music/nea_12s.m4a` | 4.32초, 페이드인 0.6초 |
+| 아넬리아 | `music/anelia_suno.mp3` (The Witch's Sparkle) → `music/anelia_12s.m4a` | 2.44초, 페이드인 0.35초 |
+| 라무네 | `music/ramune_suno.mp3` (Boss Battle) → `music/ramune_12s.m4a` | 2.57초, 페이드인 0.3초 |
