@@ -72,3 +72,4 @@ ffmpeg -i <무음 영상> -i music/jin_12s.wav -map 0:v -map 1:a -c:v copy -c:a 
 | 네아 | `music/nea_suno.mp3` (Frost Waltz) → `music/nea_12s.m4a` | 4.32초, 페이드인 0.6초 |
 | 아넬리아 | `music/anelia_suno.mp3` (The Witch's Sparkle) → `music/anelia_12s.m4a` | 2.44초, 페이드인 0.35초 |
 | 라무네 | `music/ramune_suno.mp3` (Boss Battle) → `music/ramune_12s.m4a` | 2.57초, 페이드인 0.3초 |
+| 손유 | `music/sonyu_suno.mp3` (Shadow of the Blade) → `music/sonyu_12s.m4a` | 7.91초, 페이드인 0.3초 |
