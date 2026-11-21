@@ -73,3 +73,11 @@ ffmpeg -i <무음 영상> -i music/jin_12s.wav -map 0:v -map 1:a -c:v copy -c:a 
 | 아넬리아 | `music/anelia_suno.mp3` (The Witch's Sparkle) → `music/anelia_12s.m4a` | 2.44초, 페이드인 0.35초 |
 | 라무네 | `music/ramune_suno.mp3` (Boss Battle) → `music/ramune_12s.m4a` | 2.57초, 페이드인 0.3초 |
 | 손유 | `music/sonyu_suno.mp3` (Shadow of the Blade) → `music/sonyu_12s.m4a` | 7.91초, 페이드인 0.3초 |
+
+## 가챠 배너 선택 모션 (테스트)
+
+`output/gacha_ep02_test.mp4` — Figma 「가챠 배너2」(1920×1080) 요소로 만든 EP.02 배너 선택 모션 테스트(4.6초).
+UI 판은 고정하고 뒤쪽만 움직입니다: 글리치 → 휘장 세 조각 조립 → 실루엣 → 글리치 → 원화 → 타이틀·이름표.
+
+- `gacha/assets/` Figma에서 내보낸 배경 판, UI 판, 타이틀, 이름표, 캐릭터(아린·코유키는 축소본), 휘장
+- `src_gacha/render.py` 렌더러 (네아는 `cut/sprite2x.npy` 고화질 스프라이트를 Figma 배치에 맞춰 사용 → 먼저 `python3 src/prep.py`)
