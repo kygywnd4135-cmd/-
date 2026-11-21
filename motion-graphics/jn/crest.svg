@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Feathered Skull Crest</title>
+  <desc id="desc">A silver and charcoal emblem combining a feathered skull hat, a tailored cape collar, and an ornamental cane.</desc>
+  <defs>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0f2f3"/>
+      <stop offset="0.42" stop-color="#aeb7be"/>
+      <stop offset="1" stop-color="#707b84"/>
+    </linearGradient>
+    <linearGradient id="steelLight" x1="0" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#d9dfe3"/>
+      <stop offset="1" stop-color="#9aa4ac"/>
+    </linearGradient>
+    <linearGradient id="charcoal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#343b41"/>
+      <stop offset="0.5" stop-color="#171c20"/>
+      <stop offset="1" stop-color="#080a0c"/>
+    </linearGradient>
+    <linearGradient id="shadowSilver" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#76818a"/>
+      <stop offset="0.5" stop-color="#e1e5e8"/>
+      <stop offset="1" stop-color="#76818a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark diamond plaque and fine double frame -->
+  <path d="M256 15 497 256 256 497 15 256Z" fill="#14070b" stroke="#c42a3e" stroke-width="5"/>
+  <path d="M256 34 478 256 256 478 34 256Z" fill="none" stroke="#5a121c" stroke-width="2.5"/>
+  <path d="M256 48 464 256 256 464 48 256Z" fill="none" stroke="#7d878e" stroke-width="1.4" opacity=".72"/>
+  <path d="M256 58 282 84 256 110 230 84Z" fill="#8e1626" stroke="#e8606e" stroke-width="1.5"/>
+  <path d="M256 402 278 424 256 446 234 424Z" fill="#8e1626" stroke="#e8606e" stroke-width="1.5"/>
+
+  <!-- Three swept feathers, echoed by the reference's radial ornament -->
+  <g stroke="#aeb7be" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M247 177C216 151 158 119 157 76c28 8 81 40 101 91 4-39 1-95-2-137 27 30 38 91 14 152" fill="url(#charcoal)"/>
+    <path d="M265 177c31-26 89-58 90-101-28 8-81 40-101 91-4-39-1-95 2-137-27 30-38 91-14 152" fill="url(#charcoal)"/>
+    <path d="M255 168C240 130 238 73 256 30c18 43 16 100 1 138" fill="#252c31"/>
+  </g>
+  <g fill="none" stroke="#c5cdd2" stroke-width="1.4" stroke-linecap="round" opacity=".85">
+    <path d="M250 165 174 83M247 158 193 91M244 151 210 104"/>
+    <path d="M262 165 338 83M265 158 319 91M268 151 302 104"/>
+    <path d="M256 164 256 49M256 139 246 71M257 139 266 71"/>
+  </g>
+  <g fill="#d6dce0">
+    <path d="m173 81 16 8-13 2zM339 81l-16 8 13 2zM256 34l5 18-5-4-5 4z"/>
+  </g>
+
+  <!-- Hat crown and sweeping brim -->
+  <path d="M205 201 220 150c21-15 51-15 72 0l15 51Z" fill="url(#charcoal)" stroke="#bac2c8" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M215 183c26-9 56-9 82 0l4 15h-90Z" fill="url(#shadowSilver)" stroke="#d4dade" stroke-width="1.5"/>
+  <path d="M119 205c42-16 92-14 137-9 45-5 95-7 137 9l20 17c-48 18-266 18-314 0Z" fill="url(#charcoal)" stroke="#d4dadd" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M133 211c45-11 81-9 123-4 42-5 78-7 123 4-54 9-192 9-246 0Z" fill="url(#shadowSilver)" opacity=".9"/>
+  <path d="M154 222c56 9 148 9 204 0" fill="none" stroke="#515b63" stroke-width="2"/>
+
+  <!-- Skull insignia mounted on the hat -->
+  <path d="M238 151c-7-6-10-14-9-23 1-17 13-29 27-29s26 12 27 29c1 9-2 17-9 23l-2 12h-32Z" fill="url(#steelLight)" stroke="#f3f4f5" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M235 122c3-10 11-16 21-16s18 6 21 16c-7-3-13-3-21-1-8-2-14-2-21 1Z" fill="#bbc4ca"/>
+  <ellipse cx="244" cy="132" rx="5.5" ry="7" fill="#101417"/>
+  <ellipse cx="268" cy="132" rx="5.5" ry="7" fill="#101417"/>
+  <path d="m256 135-4 9 4 3 4-3Z" fill="#333b41"/>
+  <path d="M244 153v8m8-8v8m8-8v8m8-8v8" stroke="#545e66" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Tailored mantle: a symbolic cape collar rather than a body silhouette -->
+  <path d="M211 239c-45 10-80 38-133 30 16 43 53 67 109 55l69-49 69 49c56 12 93-12 109-55-53 8-88-20-133-30l-45 33Z" fill="url(#charcoal)" stroke="#aeb7be" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M207 253c-37 14-68 30-111 29 23 20 49 27 82 23l56-36Z" fill="#2c3338" stroke="#65717a" stroke-width="1.4"/>
+  <path d="M305 253c37 14 68 30 111 29-23 20-49 27-82 23l-56-36Z" fill="#2c3338" stroke="#65717a" stroke-width="1.4"/>
+  <path d="M213 247c-24 24-30 48-27 69 21-8 44-21 70-43M299 247c24 24 30 48 27 69-21-8-44-21-70-43" fill="none" stroke="url(#steel)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M247 267 225 300l31 22 31-22-22-33" fill="#14191d" stroke="#bac2c8" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="m256 278 13 22-13 10-13-10Z" fill="url(#steel)"/>
+  <circle cx="256" cy="297" r="4" fill="#c42a3e"/>
+
+  <!-- Crook-handled cane, reduced to a clean central emblem -->
+  <path d="M255 318c-3-14-2-26 7-34 9-8 22-5 25 5 3 9-3 17-11 17-5 0-8-4-7-8 1-3 4-5 7-4" fill="none" stroke="#dce1e4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M255 318v111" fill="none" stroke="#bbc4ca" stroke-width="8" stroke-linecap="round"/>
+  <path d="M255 319v109" fill="none" stroke="#343d44" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M247 335h16M248 343h14M249 351h12" fill="none" stroke="#e0e4e7" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="m255 427 12 15-12 18-12-18Z" fill="url(#steel)" stroke="#f0f2f3" stroke-width="1.5"/>
+  <path d="m255 435 5 7-5 8-5-8Z" fill="#30383e"/>
+
+  <!-- Small side studs complete the heraldic balance -->
+  <g fill="url(#steel)" stroke="#edf0f2" stroke-width="1">
+    <path d="m101 252 7 7-7 7-7-7Z"/>
+    <path d="m411 252 7 7-7 7-7-7Z"/>
+  </g>
+</svg>

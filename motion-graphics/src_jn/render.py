@@ -84,6 +84,9 @@ def glints(t,M,pts,col,cv,size=38):
         if k>0.03:
             x,y=xf(M,gx*K,gy*K); star4(cv,np.array([x,y]),size*(0.5+0.5*k),tuple(c*k for c in col))
 BGCAM=Cam(FW/2,FH*0.5-60,1.0,0.0)
+_cr=np.asarray(Image.open(S+'jn/crest.png').convert('RGBA')).astype(np.float32)/255
+_cr[...,:3]*=_cr[...,3:4]          # premultiply
+CREST=_cr; CREST_SIZE=190; CREST_Y=160
 def render(f):
     t=f/FPS
     if t<T2: return to8(OP.opening(t,T1,T2))
@@ -132,14 +135,19 @@ def render(f):
         img*=1-0.78*g*eout(tr/1.2)
         ke=eout((tr-1.0)/0.8)
         if ke>0:
-            em=Canvas(); C=np.array([FW/2,150])
-            em.circle(C,64*ke,SILV,1); em.circle(C,72*ke,(0.70,0.12,0.18),1)
-            for k in range(8):
-                a=math.radians(45*k+15*tr); p=C+np.array([math.cos(a),math.sin(a)])*72*ke
-                d=5*ke; em.poly([p+[0,-d],p+[d*0.6,0],p+[0,d],p+[-d*0.6,0]],(0.85,0.20,0.26))
-            rose(em,SCR,FW/2,152,54,T5+1.0,t,0.0,small=False)
-            la=em.rgb.astype(np.float32)/255; a=em.a.astype(np.float32)/255
-            img[...]=img*(1-a[...,None]*ke)+la*ke; img+=cv2.GaussianBlur(la,(0,0),8)*0.5*ke
+            # Jin's feathered skull crest (from the supplied SVG), pops in with overshoot + a silver sheen
+            sz=CREST_SIZE*ob((tr-1.0)/0.55,1.4)
+            if sz>2:
+                M=cv2.getRotationMatrix2D((CREST.shape[1]/2,CREST.shape[0]/2),0,sz/CREST.shape[1])
+                M[0,2]+=FW/2-CREST.shape[1]/2; M[1,2]+=CREST_Y-CREST.shape[0]/2
+                cr=cv2.warpAffine(CREST,M,(FW,FH),flags=cv2.INTER_AREA,borderMode=cv2.BORDER_CONSTANT,borderValue=0)
+                ca=cr[...,3]*ke; crgb=cr[...,:3]
+                su=(tr-1.6)/0.7
+                if 0<su<1:
+                    band=np.exp(-((_xx-(FW/2-CREST_SIZE+su*2*CREST_SIZE))+(_yy-CREST_Y)*0.6)**2/(2*18**2))
+                    crgb=crgb+band[...,None]*0.55*cr[...,3:4]
+                img+=cv2.GaussianBlur(ca,(0,0),14)[...,None]*GLOW_C*0.55
+                img[...]=img*(1-ca[...,None])+crgb*ca[...,None]
         kt=eout((tr-1.3)/1.1,3)
         if kt>0:
             sp=int((150-100*kt)*0.9)
