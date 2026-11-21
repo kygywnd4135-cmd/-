@@ -1,0 +1,11 @@
+/* Measured from the two supplied 1920 × 1080 friend-request PDFs. */
+.friend-feedback-canvas{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--friend-feedback-scale,1));pointer-events:none}
+.friend-feedback-toast-canvas{z-index:21}
+.friend-feedback-toast{position:absolute;left:50%;top:898px;translate:-50% 0;display:flex;align-items:center;justify-content:center;width:426px;height:50px;margin:0;padding:0 20px;border:1px solid #727272;border-top-color:#b5b5b5;border-radius:26px;background:linear-gradient(180deg,#000e,#080808e6);box-shadow:inset 0 1px 0 #ffffff15;color:#fff;font-size:20px;font-weight:500;line-height:24px;white-space:nowrap}
+.friend-feedback-overlay{position:absolute;inset:0;z-index:22;background:#0003;backdrop-filter:blur(5px)}
+.friend-feedback-dialog{position:absolute;left:50%;top:50%;translate:-50% -50%;width:596px;height:290px;overflow:hidden;background:#d0d0d0;color:#080808;box-shadow:0 4px 9px #0003;pointer-events:auto;isolation:isolate}
+.friend-feedback-facets{position:absolute;left:-664px;top:-395px;width:1920px;height:1080px;max-width:none;pointer-events:none;opacity:.24}
+.friend-feedback-dialog>h2{position:absolute;left:22px;right:22px;top:68px;margin:0;color:#080808;font-size:30px;font-weight:550;line-height:43px;letter-spacing:0;text-align:center;overflow-wrap:anywhere}
+.friend-feedback-dialog>button{position:absolute;left:212px;top:205px;display:flex;align-items:center;justify-content:center;width:172px;height:67px;padding:0;border:0;border-radius:0;background:#404040;color:#fff;font-size:30px;font-weight:500;line-height:38px;cursor:pointer}
+.friend-feedback-dialog>button:hover{background:#505050}
+.friend-feedback-dialog>button:focus-visible{outline:2px solid #222;outline-offset:4px}

@@ -1,0 +1,11 @@
+/* Keep button labels from being selected while clicking or dragging controls. */
+.crime-app :is(button,[role="button"],[role="tab"],[role="option"]):not(:where(.city-chat *,.arena-chat *,.city-megaphone)) {
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+/* Chat, megaphone content, and editable fields keep their normal copy/edit behavior. */
+.crime-app :is(input,textarea,[contenteditable="true"],.city-chat-stream,.city-chat-stream *,.arena-chat,.arena-chat *,.city-megaphone,.city-megaphone *) {
+  -webkit-user-select:text;
+  user-select:text;
+}

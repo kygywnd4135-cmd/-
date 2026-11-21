@@ -1,0 +1,27 @@
+/* Logos, colors and inventory coordinates come from the 2026-10-27 PDF. */
+.currency-balance{display:flex;align-items:center;justify-content:space-between;gap:14px;box-sizing:border-box;border:1px solid;border-radius:28px;background:#0003;color:#dadada;white-space:nowrap;font-family:inherit;font-size:20px;line-height:24px;font-weight:500}
+.currency-points{border-color:#ad0c0f}
+.currency-primacy{border-color:#eed8bc99}
+.currency-copy{min-width:0;display:flex;align-items:baseline;gap:7px}
+.currency-amount{font-weight:500;font-variant-numeric:tabular-nums}
+.currency-points .currency-amount{font-weight:600}
+.currency-primacy .currency-amount{font-weight:700;color:#fff}
+.currency-logo{display:block;object-fit:contain;flex-shrink:0;max-width:none;pointer-events:none;user-select:none}
+.currency-points .currency-logo{width:30.125px;height:30.125px}
+.currency-primacy .currency-logo{width:26.1161px;height:27.0002px}
+.inventory-frame>.inventory-points{position:absolute;left:48px;top:769px;width:370px;height:44px;padding:0 13.875px 0 22px;box-shadow:none}
+.inventory-frame>.inventory-primacy{position:absolute;left:445px;top:768px;width:409px;height:48px;padding:0 14.89px 0 19px}
+.inventory-frame .currency-amount{font-variant-numeric:normal}
+.inventory-points .currency-logo{transform:translateY(.0625px)}
+.inventory-primacy .currency-logo{transform:translateY(-.5px)}
+.city-lobby-canvas .city-tools{gap:10px}
+.city-header-right .city-wallet-button{display:block;flex-shrink:0;width:250px;height:38px;padding:0;border:0;border-radius:22px;background:transparent;color:inherit;text-align:left}
+.city-wallet-button>.currency-balance{width:100%;height:100%;padding:0 12px 0 15px;gap:9px;background:var(--well,#151515);color:var(--ink,#f2f2f2);font-size:11px;line-height:18px;transition:background-color .2s,border-color .2s}
+.city-wallet-button .currency-copy{flex:1;gap:5px}
+.city-wallet-button .currency-amount{margin-left:auto;font-size:17px;font-weight:650;color:var(--ink,#f2f2f2)}
+.city-wallet-button .currency-logo{width:24px;height:24px}
+.city-wallet-button .currency-primacy .currency-logo{width:23px;height:24px}
+.city-wallet-button:hover>.currency-balance{background:var(--hover,#2c2c2c)}
+.city-wallet-button:focus-visible{outline:2px solid var(--ink,#f2f2f2);outline-offset:3px}
+
+.city-header-right .city-primacy-wallet{width:275px}

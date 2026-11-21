@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {levelSnapshot,levelAdvance} from '../app/lib/level-up.ts';
+let checks=0;
+const eq=(a,b)=>{assert.deepEqual(a,b);checks++;};
+eq(levelSnapshot(null),null);
+eq(levelSnapshot({id:'a'}),null);
+for(const clears of [-1,NaN,Infinity,1.5,'5'])eq(levelSnapshot({id:'a',clears}),null);
+eq(levelSnapshot({id:'a',clears:4}),{userId:'a',level:1});
+eq(levelSnapshot({id:'a',clears:5}),{userId:'a',level:2});
+eq(levelSnapshot({id:'a',clears:10}),{userId:'a',level:3});
+eq(levelAdvance(null,levelSnapshot({id:'a',clears:25})),null);
+eq(levelAdvance(levelSnapshot({id:'a',clears:4}),levelSnapshot({id:'b',clears:10})),null);
+eq(levelAdvance(levelSnapshot({id:'a',clears:4}),levelSnapshot({id:'a',clears:4})),null);
+eq(levelAdvance(levelSnapshot({id:'a',clears:5}),levelSnapshot({id:'a',clears:4})),null);
+eq(levelAdvance(levelSnapshot({id:'a',clears:4}),levelSnapshot({id:'a',clears:5})),{from:1,to:2});
+eq(levelAdvance(levelSnapshot({id:'a',clears:4}),levelSnapshot({id:'a',clears:15})),{from:1,to:4});
+eq(levelAdvance(levelSnapshot({id:'a',clears:4}),null),null);
+console.log(`PASS: ${checks} level-up checks: five-clear threshold, real increases only, initial login, account changes, duplicate refreshes, missing/invalid counts, and multi-level increases.`);

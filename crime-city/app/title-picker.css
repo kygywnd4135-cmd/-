@@ -1,0 +1,19 @@
+/* Expand inside the right-hand profile column, retaining the supplied panel layout. */
+.city-lobby-canvas .city-title-picker {position: relative; width: 385px; z-index: 5;}
+.city-lobby-canvas .city-title-picker.open {border-radius: 15px 15px 5px 5px; box-shadow: 0 8px 20px #00000018;}
+.city-lobby-canvas .city-title-picker .city-profile-title {display: flex; align-items: center; justify-content: center; width: 100%; gap: 5px; padding: 0 30px; font-size: 12px;}
+.city-lobby-canvas .city-title-picker.open .city-profile-title {border-radius: 15px 15px 0 0; border-bottom-color: transparent; background: var(--raised);}
+.city-title-picker .city-profile-title > svg {transition: transform .18s ease;}
+.city-title-picker.open .city-profile-title > svg {transform: rotate(180deg);}
+.city-title-dropdown {position: absolute; left: 0; right: 0; top: 25px; padding: 4px 7px 10px; background: var(--raised); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 5px 5px;}
+.city-owned-titles {display: flex; flex-direction: column; gap: 6px; height: 218px; max-height: 218px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 0 2px 0 0; scroll-padding: 4px;}
+.city-owned-titles > button {display: flex; align-items: center; justify-content: center; gap: 5px; width: 100%; min-height: 24px; height: 24px; flex: none; border: 1px solid var(--line); border-radius: 3px; padding: 0 10px; background: var(--well); color: var(--muted); font-size: 12px; line-height: 1.4; white-space: nowrap;}
+.city-owned-titles > button:hover {background: var(--hover); color: var(--ink); border-color: var(--line-strong);}
+.city-owned-titles > button.equipped {background: var(--action); color: var(--action-ink); border-color: var(--action);}
+.city-owned-titles > button[aria-disabled="true"] {cursor: progress;}
+.city-title-equipped {font-weight: 600;}
+.city-title-status {display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 36px; color: var(--muted); text-align: center; font-size: 12px; line-height: 1.8;}
+.city-owned-titles::-webkit-scrollbar {width: 4px;}
+.city-owned-titles::-webkit-scrollbar-thumb {background: var(--line-strong); border-radius: 3px;}
+.city-profile-identity:has(.city-title-picker.open) {z-index: 8;}
+.city-profile-bio {cursor: default;}

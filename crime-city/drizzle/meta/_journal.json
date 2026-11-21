@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1792511085450,
+      "tag": "0000_volatile_carlie_cooper",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792529280160,
+      "tag": "0001_fat_electro",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792557545535,
+      "tag": "0002_nickname_accounts",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792562201343,
+      "tag": "0003_profile_appearance",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792574164528,
+      "tag": "0004_expanded_profile",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1792920942712,
+      "tag": "0005_clever_randall",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792976407300,
+      "tag": "0006_bumpy_reptil",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1793061887221,
+      "tag": "0007_quiet_king_cobra",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1793067452093,
+      "tag": "0008_eminent_scalphunter",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1793336674297,
+      "tag": "0009_slippery_nextwave",
+      "breakpoints": true
+    }
+  ]
+}

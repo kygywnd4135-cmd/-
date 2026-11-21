@@ -1,0 +1,1 @@
+ALTER TABLE `player_profiles` ADD `primacy_tokens` integer DEFAULT 0 NOT NULL;

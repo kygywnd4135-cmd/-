@@ -1,0 +1,184 @@
+{
+  "intro": [
+    {
+      "source": "X5.jp2",
+      "asset": "intro-1.png",
+      "size": [
+        1433,
+        1098
+      ]
+    },
+    {
+      "source": "X4.jp2",
+      "asset": "intro-2.png",
+      "size": [
+        1232,
+        1632
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-3.png",
+      "size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-4.png",
+      "size": [
+        2740,
+        2160
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-5.png",
+      "size": [
+        1608,
+        868
+      ]
+    }
+  ],
+  "name": [
+    {
+      "source": "X9.jp2",
+      "asset": "name-6.png",
+      "size": [
+        2320,
+        238
+      ]
+    },
+    {
+      "source": "X8.jp2",
+      "asset": "name-6.png",
+      "size": [
+        2320,
+        238
+      ]
+    },
+    {
+      "source": "X7.jp2",
+      "asset": "name-7.png",
+      "size": [
+        738,
+        738
+      ]
+    },
+    {
+      "source": "X10.jp2",
+      "asset": "name-8.png",
+      "size": [
+        2324,
+        242
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-3.png",
+      "size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "source": "X6.jp2",
+      "asset": "name-9.png",
+      "size": [
+        574,
+        574
+      ]
+    },
+    {
+      "source": "X3.jp2",
+      "asset": "intro-1.png",
+      "size": [
+        1433,
+        1098
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-5.png",
+      "size": [
+        1608,
+        868
+      ]
+    }
+  ],
+  "confirm": [
+    {
+      "source": "X9.jp2",
+      "asset": "name-6.png",
+      "size": [
+        2320,
+        238
+      ]
+    },
+    {
+      "source": "X8.jp2",
+      "asset": "name-6.png",
+      "size": [
+        2320,
+        238
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "confirm-10.png",
+      "size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "source": "X3.jp2",
+      "asset": "intro-1.png",
+      "size": [
+        1433,
+        1098
+      ]
+    },
+    {
+      "source": "X7.jp2",
+      "asset": "name-7.png",
+      "size": [
+        738,
+        738
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-5.png",
+      "size": [
+        1608,
+        868
+      ]
+    },
+    {
+      "source": "X10.jp2",
+      "asset": "name-8.png",
+      "size": [
+        2324,
+        242
+      ]
+    },
+    {
+      "source": "X1.jp2",
+      "asset": "intro-3.png",
+      "size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "source": "X6.jp2",
+      "asset": "name-9.png",
+      "size": [
+        574,
+        574
+      ]
+    }
+  ]
+}

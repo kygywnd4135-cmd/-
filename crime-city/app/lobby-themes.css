@@ -1,0 +1,186 @@
+/* Frame 310 layout with one dark lobby palette. The entry artwork keeps its original colors. */
+.crime-app.is-lobby {
+  --lobby-bg: #050505;
+  --surface: #151515;
+  --well: #0b0b0b;
+  --raised: #222222;
+  --hover: #2c2c2c;
+  --line: #343434;
+  --line-strong: #575757;
+  --ink: #f2f2f2;
+  --muted: #b0b0b0;
+  --faint: #909090;
+  --action: #efefef;
+  --action-ink: #151515;
+  --own-bubble: #dadada;
+  --own-ink: #191919;
+  --city-light: var(--ink);
+  --city-muted: var(--muted);
+  color-scheme: dark;
+  background: var(--lobby-bg);
+  color: var(--ink);
+}
+
+.is-lobby .city-lobby-canvas { background: var(--lobby-bg); }
+.is-lobby .city-panel,
+.is-lobby .city-lobby-canvas .city-panel {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: 0 5px 20px #0000000a;
+}
+.is-lobby .city-panel:before { background: none; }
+.city-shop, .city-event, .city-friends { border-color: var(--line); background: var(--well); }
+.is-lobby .city-tool,
+.is-lobby .city-my-account { color: var(--muted); }
+.is-lobby .city-tool:hover,
+.is-lobby .city-tool.active { background: var(--hover); border-color: var(--line-strong); color: var(--ink); }
+.is-lobby .city-tool.locked { color: var(--faint); }
+.is-lobby .city-my-account { border-color: var(--line); }
+.is-lobby .city-lobby-canvas .city-profile-title,
+.is-lobby .city-lobby-canvas .city-nickname > strong,
+.is-lobby .city-lobby-canvas .city-nickname > button,
+.is-lobby .city-lobby-canvas .city-change-image,
+.is-lobby .city-lobby-canvas .city-frame-change { background: var(--raised); border-color: var(--line); color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-nickname > button:hover,
+.is-lobby .city-lobby-canvas .city-change-image:hover,
+.is-lobby .city-lobby-canvas .city-frame-change:hover { background: var(--hover); border-color: var(--line-strong); }
+.is-lobby .city-lobby-canvas .city-level > b,
+.is-lobby .city-lobby-canvas .city-level strong { color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-level > span { color: var(--muted); }
+.is-lobby .city-lobby-canvas .city-profile-bio { background: var(--well); border-color: var(--line); }
+.is-lobby .city-lobby-canvas .city-profile-bio > p,
+.is-lobby .city-lobby-canvas .city-profile-bio.empty > p { color: var(--muted); }
+.is-lobby .city-lobby-canvas .city-xp { background: var(--well); border-color: var(--line); }
+.is-lobby .city-xp > span { background: var(--ink); }
+.is-lobby .city-avatar,
+.is-lobby .city-avatar.classic { background: var(--raised); border-color: var(--line-strong); }
+.is-lobby .city-lobby-canvas .city-notices .city-panel-heading h2,
+.is-lobby .city-lobby-canvas .city-quick .city-panel-heading h2 { color: var(--ink); }
+.is-lobby .city-panel-heading > button { color: var(--muted); }
+.is-lobby .city-panel-heading > button:hover { color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2),
+.is-lobby .city-lobby-canvas .city-quick-list { background: var(--well); border-color: var(--line); }
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2) > button { background: var(--raised); border-color: var(--line); }
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2) > button.important { background: var(--hover); border-color: var(--line-strong); }
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2) > button strong,
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2) > button.important strong { color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2) > button time { color: var(--muted); }
+.is-lobby .city-lobby-canvas .city-notices > div:nth-child(2) > button.important span { background: var(--surface); border-color: var(--line); color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-broadcast { background: var(--raised); border-color: var(--line-strong); box-shadow: none; }
+.is-lobby .city-lobby-canvas .city-broadcast strong,
+.is-lobby .city-broadcast > svg { color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-broadcast span { color: var(--muted); }
+.is-lobby .city-chat-stream { background-image: none; }
+.is-lobby .city-chat-welcome h2,
+.is-lobby .city-chat-author > strong,
+.is-lobby .city-chat-message.own .city-chat-author > strong { color: var(--ink); }
+.is-lobby .city-chat-welcome p,
+.is-lobby .city-chat-welcome > span { color: var(--muted); }
+.is-lobby .city-chat-date,
+.is-lobby .city-chat-message time,
+.is-lobby .city-chat-message.own time { color: var(--faint); }
+.is-lobby .city-chat-date > span { background: var(--line); }
+.is-lobby .city-operator-message { background: var(--well); border-color: var(--line); color: var(--muted); }
+.is-lobby .city-operator-message > svg { color: var(--muted); }
+.is-lobby .city-chat-author > span { background: var(--well); border-color: var(--line); color: var(--muted); }
+.is-lobby .city-chat-bubble { background: var(--raised); border-color: var(--line-strong); color: var(--ink); }
+.is-lobby .city-chat-bubble:before { border-top-color: var(--line-strong); }
+.is-lobby .city-chat-message.own .city-chat-bubble { background: var(--own-bubble); border-color: var(--own-bubble); color: var(--own-ink); }
+.is-lobby .city-chat-message.own .city-chat-bubble:before { border-top-color: var(--own-bubble); }
+.is-lobby .city-lobby-canvas .city-chat-bottom form { background: var(--surface); border-color: var(--line-strong); }
+.is-lobby .city-chat-bottom form > button { color: var(--muted); }
+.is-lobby .city-chat-hint,
+.is-lobby .city-chat-hint > span:first-child { color: var(--faint); }
+.is-lobby .city-lobby-canvas .city-chat-bottom form > button.city-megaphone { background: var(--raised); border-color: var(--line); color: var(--muted); }
+.is-lobby .city-lobby-canvas .city-chat-bottom form > button.city-send { background: var(--action); border-color: var(--action); color: var(--action-ink); }
+.is-lobby .city-emoji { background: var(--surface); border-color: var(--line-strong); }
+.is-lobby .city-emoji > button:hover { background: var(--hover); }
+.is-lobby .city-lobby-canvas .city-room-card { background: var(--raised); border-color: var(--line); }
+.is-lobby .city-lobby-canvas .city-room-card:hover:not(:disabled) { background: var(--hover); border-color: var(--line-strong); }
+.is-lobby .city-lobby-canvas .city-room-card > strong,
+.is-lobby .city-room-card-top > span:first-child,
+.is-lobby .city-room-card-bottom > b { color: var(--ink); }
+.is-lobby .city-lobby-canvas .city-room-card-top > span:nth-child(2),
+.is-lobby .city-lobby-canvas .city-room-card-bottom em { color: var(--muted); }
+.is-lobby .city-no-rooms > strong { color: var(--ink); }
+.is-lobby .city-no-rooms > p,
+.is-lobby .city-no-rooms > svg { color: var(--faint); }
+.is-lobby .city-demo-room { background: var(--raised); border-color: var(--line-strong); }
+.is-lobby .city-demo-room strong { color: var(--ink); }
+.is-lobby .city-demo-room > div > div > span,
+.is-lobby .city-demo-room > svg { color: var(--muted); }
+.is-lobby .city-demo-room:hover:not(:disabled) { background: var(--hover); border-color: var(--line-strong); }
+.is-lobby .city-demo-icon { background: var(--surface); border-color: var(--line); color: var(--ink); }
+.is-lobby .city-resume { background: var(--raised); border-color: var(--line-strong); }
+.is-lobby .city-resume > span { color: var(--muted); }
+.is-lobby .city-resume strong { color: var(--ink); }
+.is-lobby .city-button.secondary { background: var(--raised); border-color: var(--line-strong); color: var(--ink); }
+.is-lobby .city-button.secondary:hover:not(:disabled) { background: var(--hover); border-color: var(--line-strong); color: var(--ink); }
+.is-lobby .city-button.primary { background: var(--action); border-color: var(--action); color: var(--action-ink); box-shadow: 0 4px 16px #00000012; }
+.is-lobby .city-button.primary:hover:not(:disabled) { background: var(--action); filter: brightness(.92); }
+.is-lobby .city-button.subtle { background: var(--well); border-color: var(--line); color: var(--muted); }
+.is-lobby .city-sound-popover,
+.is-lobby .city-sound-popover:before { background: var(--surface); border-color: var(--line-strong); }
+.is-lobby .city-sound-popover strong { color: var(--ink); }
+.is-lobby .city-sound-popover > label,
+.is-lobby .city-sound-popover > label > span,
+.is-lobby .city-sound-popover button { color: var(--muted); }
+.is-lobby .city-sound-popover input { accent-color: var(--ink); }
+.is-lobby .modal { background: var(--surface); border-color: var(--line-strong); }
+.is-lobby .modal h2 { color: var(--ink); }
+.is-lobby .modal-head { border-color: var(--line); }
+.is-lobby .modal-head > .eyebrow,
+.is-lobby .modal-head > .icon-button { color: var(--muted); border-color: var(--line); }
+.is-lobby .city-muted,
+.is-lobby .city-eyebrow,
+.is-lobby .city-article { color: var(--muted); }
+.is-lobby .modal form > label,
+.is-lobby .city-field-row label,
+.is-lobby .city-check { color: var(--ink); }
+.crime-app.is-lobby input,
+.crime-app.is-lobby textarea,
+.crime-app.is-lobby select { background: var(--well); border-color: var(--line); color: var(--ink); }
+.crime-app.is-lobby input::placeholder,
+.crime-app.is-lobby textarea::placeholder { color: var(--faint); }
+.crime-app.is-lobby input:focus,
+.crime-app.is-lobby textarea:focus,
+.crime-app.is-lobby select:focus { border-color: var(--line-strong); box-shadow: 0 0 0 3px #88888816; }
+.is-lobby .city-chat-bottom form > input { background: transparent; }
+.is-lobby .city-avatar-picker > button { background: var(--well); border-color: var(--line); }
+.is-lobby .city-avatar-picker > button.selected { border-color: var(--ink); background: var(--hover); }
+.is-lobby .city-avatar-picker > button > svg { background: var(--action); color: var(--action-ink); }
+.is-lobby .city-edit-profile p,
+.is-lobby .city-room-spec,
+.is-lobby .city-scenario-description,
+.is-lobby .city-chip { color: var(--muted); }
+.is-lobby .city-chip { background: var(--well); border-color: var(--line); }
+.is-lobby .city-scenario-tabs > button { background: var(--well); border-color: var(--line); color: var(--muted); }
+.is-lobby .city-scenario-tabs > button.active { background: var(--hover); border-color: var(--line-strong); color: var(--ink); }
+.is-lobby .city-toast { background: var(--surface); border-color: var(--line-strong); color: var(--ink); }
+.is-lobby .city-toast > svg,
+.is-lobby .city-toast > button { color: var(--muted); }
+.is-lobby button:focus-visible { outline-color: var(--ink); }
+.is-lobby ::-webkit-scrollbar-thumb { background: var(--line-strong); }
+.is-lobby ::selection { background: #88888844; }
+
+/* Interpolate the actual surfaces together so switching never flashes a white layer. */
+@media (prefers-reduced-motion: no-preference) {
+  .crime-app.is-lobby,
+  .crime-app.is-lobby :where(*),
+  .crime-app.is-lobby :where(*)::before,
+  .crime-app.is-lobby :where(*)::after {
+    transition:
+      background-color .85s cubic-bezier(.4, 0, .2, 1),
+      color .75s cubic-bezier(.4, 0, .2, 1),
+      border-color .85s cubic-bezier(.4, 0, .2, 1),
+      box-shadow .85s cubic-bezier(.4, 0, .2, 1),
+      transform .22s ease,
+      opacity .22s ease;
+  }
+}
+
+.city-events-empty {padding: 25px 0 30px; text-align: center;}
+.city-events-icon {display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; margin: 0 auto 20px; border: 1px solid var(--line, #4a4a4a); border-radius: 18px; background: var(--well, #151515); color: var(--ink, #f2f2f2);}
+.city-events-empty > h2 {margin-bottom: 14px;}
+.city-events-empty > p {font-size: 14px; color: var(--ink, #f2f2f2);}
+.city-events-empty > small {display: block; margin-top: 7px; font-size: 11px; color: var(--muted, #b0b0b0);}
