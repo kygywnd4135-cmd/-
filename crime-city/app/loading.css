@@ -5,9 +5,12 @@
 .loading-screen.is-leaving{opacity:0}
 .loading-stage{position:relative;width:min(100vw,calc(100vh * 16 / 9));aspect-ratio:16/9;container-type:size;overflow:hidden}
 .loading-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 9.861%,rgba(44,0,0,.8) 83.056%)}
-.loading-symbol{position:absolute;left:42.2396%;top:20.0926%;width:15.4688%;height:46.1111%}
+/* Character box: 418 x 498 centered where the 297 x 498 symbol was (x 750.5, y 217). */
+.loading-symbol{position:absolute;left:39.0885%;top:20.0926%;width:21.7708%;height:46.1111%}
 .loading-symbol img{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;pointer-events:none}
-/* White copy revealed from the bottom up in step with real loading progress. */
+.loading-symbol-base{object-fit:contain;filter:grayscale(1) brightness(.62) contrast(1.05)}
+.loading-symbol .loading-symbol-fill{object-fit:contain}
+/* Color copy revealed from the bottom up in step with real loading progress. */
 .loading-symbol-fill{clip-path:inset(calc((1 - var(--loading-progress,0)) * 100%) 0 0 0);transition:clip-path .3s linear}
 .crime-app .loading-text,.loading-text{position:absolute;left:49.974%;top:70.2778%;margin:0;transform:translateX(-50%);white-space:nowrap;color:#fff;font-family:'SUITE Variable',system-ui,sans-serif;font-size:2.34375cqw;font-weight:700;line-height:normal}
 .loading-dots i{display:inline-block;font-style:normal;animation:loading-dot 1.1s ease-in-out infinite}

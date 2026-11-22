@@ -9,7 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = path.join(root, 'public');
 const SECTION_BY_FOLDER = {start: 'start', story: 'story'};
 const IMAGE = /\.(png|jpe?g|webp|svg|gif|avif)$/i;
-const SKIP = new Set(['assets/loading-symbol.svg', 'assets/loading-symbol-white.svg']);
+const SKIP = new Set(['assets/loading-character.webp']);
 const SECTION_BY_FILE = {'assets/crime-city-logo.webp': 'start'};
 
 const sections = {start: [], story: [], lobby: []};

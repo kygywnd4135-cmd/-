@@ -2,7 +2,8 @@
 import {useCallback,useRef,useState,type CSSProperties} from 'react';
 import {ASSET_MANIFEST,FONT_MANIFEST,type LoadSection} from './lib/asset-manifest';
 
-// Loading screen from Figma "로딩" (1101:106). Shown until a section is 100% ready:
+// Loading screen from Figma "로딩" (1101:106), with the user's chibi character in place of the
+// winged-blade symbol: a grayscale copy fills with color from the bottom up as loading progresses. Shown until a section is 100% ready:
 // every image of that section downloaded and decoded, fonts ready and its first data
 // fetched, so tabs and popups inside it open without any further loading.
 
@@ -68,8 +69,8 @@ export function CityLoadingScreen({progress,leaving}:{progress:number;leaving:bo
   <div className="loading-stage" style={{'--loading-progress':progress} as CSSProperties}>
    <div className="loading-shade" aria-hidden="true"/>
    <div className="loading-symbol" aria-hidden="true">
-    <img src="/assets/loading-symbol.svg" alt="" draggable={false}/>
-    <img className="loading-symbol-fill" src="/assets/loading-symbol-white.svg" alt="" draggable={false}/>
+    <img className="loading-symbol-base" src="/assets/loading-character.webp" alt="" draggable={false}/>
+    <img className="loading-symbol-fill" src="/assets/loading-character.webp" alt="" draggable={false}/>
    </div>
    <p className="loading-text">데이터를 로딩하고 있습니다. 잠시만 기다려주세요<span className="loading-dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></p>
   </div>

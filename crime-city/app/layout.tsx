@@ -40,6 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head><link rel="preload" as="image" href="/assets/loading-character.webp" fetchPriority="high"/></head>
       <body className="antialiased">{children}</body>
     </html>
   );
