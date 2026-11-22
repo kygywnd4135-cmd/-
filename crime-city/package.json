@@ -17,7 +17,9 @@
     "db:export": "node scripts/local-db.mjs export",
     "db:restore": "node scripts/local-db.mjs restore",
     "check": "tsc --noEmit",
-    "test:smoke": "node scripts/smoke-test.mjs"
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "deploy:setup": "node scripts/deploy-cloudflare.mjs setup",
+    "deploy": "node scripts/deploy-cloudflare.mjs deploy"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
