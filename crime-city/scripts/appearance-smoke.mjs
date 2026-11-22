@@ -33,7 +33,7 @@ try {
   await call('profile/appearance', undefined, pending, 403);
   await call('profile/photo', {data}, pending, 403);
   let appearance = (await call('profile/appearance', undefined, a)).data.appearance;
-  equal(appearance, {avatar: 0, avatarUrl: '/assets/profiles/male-a.png', frame: 'classic', usePhoto: 0, uploadedUrl: null});
+  equal(appearance, {avatar: 0, avatarUrl: '/assets/profiles/male-a.webp', frame: 'classic', usePhoto: 0, uploadedUrl: null});
   await call('profile/appearance', {avatar: 'upload'}, a, 400);
   for (const value of [2, 5, -1, '1', 'locked', null]) await call('profile/appearance', {avatar: value}, a, 400);
   for (const frame of ['silver', 'event', '', null]) await call('profile/appearance', {frame}, a, 400);
@@ -48,7 +48,7 @@ try {
   await call('profile/bio', {bio: '사진 변경 중 보존할 소개'}, a);
   await call('profile/title', {title: '밤의 기록자'}, a);
   appearance = (await call('profile/appearance', {avatar: 1, frame: 'crimson', points: 9999}, a)).data.appearance;
-  equal(appearance.avatarUrl, '/assets/profiles/female-a.png'); equal(appearance.frame, 'crimson');
+  equal(appearance.avatarUrl, '/assets/profiles/female-a.webp'); equal(appearance.frame, 'crimson');
   appearance = (await call('profile/photo', {data}, a)).data.appearance;
   equal(appearance.usePhoto, 1); equal(appearance.avatarUrl, appearance.uploadedUrl); equal(appearance.frame, 'crimson');
   const photo = await fetch(base + appearance.avatarUrl);
@@ -64,14 +64,14 @@ try {
   me = (await call('me', undefined, a)).data.user; equal(me.avatarUrl, appearance.avatarUrl);
   const ownUrl = appearance.avatarUrl;
   appearance = (await call('profile/appearance', {avatar: 0}, a)).data.appearance;
-  equal(appearance.avatarUrl, '/assets/profiles/male-a.png'); equal(appearance.uploadedUrl, ownUrl);
+  equal(appearance.avatarUrl, '/assets/profiles/male-a.webp'); equal(appearance.uploadedUrl, ownUrl);
   await call('profile/appearance', {avatar: 'upload'}, a);
   // An unrelated legacy save may not silently disable the custom photo.
   await call('profile', {bio: '소개만 수정'}, a);
   equal((await call('me', undefined, a)).data.user.avatarUrl, ownUrl);
   room = (await call('rooms', {title: '프로필 연동 검증', demo: true}, a)).data;
   equal(room.players[0].avatarUrl, ownUrl); equal(room.players[0].frame, 'classic');
-  equal((await call('profile/appearance', undefined, viewer)).data.appearance.avatarUrl, '/assets/profiles/male-a.png');
+  equal((await call('profile/appearance', undefined, viewer)).data.appearance.avatarUrl, '/assets/profiles/male-a.webp');
   await call('profile-photos/' + crypto.randomUUID(), undefined, undefined, 404);
   console.log(`PASS: ${checks} appearance checks. Starter ownership, legacy bypass rejection, bounded square JPEG uploads, saved photo reuse, public rendering, isolation, CSRF, and room integration.`);
 } finally {

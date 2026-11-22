@@ -31,7 +31,7 @@ try{
  equal(blocked.data.code,'nickname_required');
  await call('profiles/'+pending.id,undefined,viewer,404);
  const first=await read(target.id,viewer);
- equal(first,{id:target.id,nickname:'공개'+suffix+'B',avatar:0,avatarUrl:'/assets/profiles/male-a.png',frame:'classic',title:'뉴비 머미러',bio:'',points:0,clears:0,level:1,progress:0,achievement:null,lastGameHonor:0});
+ equal(first,{id:target.id,nickname:'공개'+suffix+'B',avatar:0,avatarUrl:'/assets/profiles/male-a.webp',frame:'classic',title:'뉴비 머미러',bio:'',points:0,clears:0,level:1,progress:0,achievement:null,lastGameHonor:0});
  // Looking at another citizen and at oneself uses the same strict public shape.
  equal((await read(viewer.id,viewer)).id,viewer.id);
  for(const id of [crypto.randomUUID(),'missing','x'.repeat(1000),encodeURIComponent("' OR 1=1 --"),target.id+'/extra','00000000-0000-0000-0000-00000000000g']){
@@ -39,7 +39,7 @@ try{
  }
  await call('profile',{avatar:1,frame:'classic',title:'밤의 기록자',bio:'공개 프로필 검증용 소개'},target);
  const edited=await read(target.id,viewer);
- equal(edited,{...first,avatar:1,avatarUrl:'/assets/profiles/female-a.png',frame:'classic',title:'밤의 기록자',bio:'공개 프로필 검증용 소개'});
+ equal(edited,{...first,avatar:1,avatarUrl:'/assets/profiles/female-a.webp',frame:'classic',title:'밤의 기록자',bio:'공개 프로필 검증용 소개'});
  await call('profile/title',{title:'신중한 관찰자'},target);
  await call('profile/bio',{bio:'새로 저장한 소개\n다음 줄'},target);
  const latest=await read(target.id,viewer);

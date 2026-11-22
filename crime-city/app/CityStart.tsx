@@ -37,7 +37,7 @@ export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth
  // Background music: browsers only allow sound after the first interaction, so retry on the first input.
  useEffect(()=>{
   const v=readNumber(VOLUME_KEY,DEFAULT_VOLUME),m=readFlag(MUTED_KEY);setVolume(v);setMuted(m);
-  const el=new Audio('/audio/start-theme.mp3');el.loop=true;el.preload='auto';el.volume=v/100;el.muted=m;audio.current=el;
+  const el=new Audio('/audio/start-theme.mp3');el.loop=true;el.preload='none';el.volume=v/100;el.muted=m;audio.current=el;
   const start=()=>{el.play().then(()=>remove()).catch(()=>{});};
   const remove=()=>{window.removeEventListener('pointerdown',start);window.removeEventListener('keydown',start);};
   window.addEventListener('pointerdown',start);window.addEventListener('keydown',start);
@@ -82,9 +82,9 @@ export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth
   <div className="start-stage">
    <img className="start-background" src="/assets/start/background.jpg" alt="" draggable={false}/>
    <div className="start-shade" aria-hidden="true"/>
-   <h1 className="start-logo"><img src="/assets/start/logo.png" alt="Crime City" draggable={false}/></h1>
+   <h1 className="start-logo"><img src="/assets/start/logo.webp" alt="Crime City" draggable={false}/></h1>
    <p className="start-subtitle">온라인 머더 미스터리 플랫폼</p>
-   <div className="start-season"><img src="/assets/start/season-logo.png" alt="죽음이 피어오르는 도시" draggable={false}/></div>
+   <div className="start-season"><img src="/assets/start/season-logo.webp" alt="죽음이 피어오르는 도시" draggable={false}/></div>
    <p className="start-season-number">SEASON.01</p>
    <img className="start-line" src="/assets/start/line.svg" alt="" aria-hidden="true" draggable={false}/>
    <nav className="start-menu" aria-label="시작 메뉴">

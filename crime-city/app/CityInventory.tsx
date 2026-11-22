@@ -9,7 +9,7 @@ import {defaultInventorySettings,inventoryExpiryAlerts,isInventoryExpired,isInve
 type Notice={kind:'delete'|'deleted'|'error';item?:InventoryItem;message?:string};
 const tabs:[InventoryCategory,string][]=[['all','ALL'],['consumable','소비'],['misc','기타'],['event','이벤트']];
 const sorts:[InventorySettings['sort'],string][]=[['grade','등급별 정렬'],['acquired','획득순 정렬'],['name','이름순 정렬'],['set','세트별 정렬']];
-const art=(name:string)=>'/assets/inventory/'+name+'.png';
+const art=(name:string)=>'/assets/inventory/'+name+'.webp';
 
 function FilterMark(){return <svg width="35" height="34" viewBox="0 0 35 34" aria-hidden="true"><path d="M1 1H34V9L20 17V29L14 33V17L1 9Z" fill="currentColor"/></svg>;}
 function ItemArt({item,large=false}:{item:InventoryItem;large?:boolean}){return item.art==='placeholder'?<span className={'inventory-placeholder'+(large?' large':'')}><img src={art('placeholder')} alt="" draggable={false}/></span>:<img className={'inventory-item-art '+item.art} src={art(item.art)} alt="" draggable={false}/>;}

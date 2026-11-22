@@ -5,7 +5,7 @@ import {cityApi} from './CityPanels';
 import CityCurrencyBalance from './CityCurrencyBalance';
 import {type ShopTab,type ShopView,type ShopProduct} from './lib/shop';
 
-const image=(name:string)=>'/assets/shop/'+name+'.png';
+const image=(name:string)=>'/assets/shop/'+name+'.webp';
 const icon=(name:string)=>'/assets/shop/'+name+'.svg';
 const tabs:[ShopTab,string][]=[['data','메인 데이터샵'],['points','포인트샵'],['primacy','프리머시샵']];
 type Layer={kind:'confirm';action:'purchase'|'refresh'}|{kind:'error'|'help';message:string}|null;

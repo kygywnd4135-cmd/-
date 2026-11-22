@@ -1,6 +1,6 @@
 export const STARTER_AVATARS = [
-  {id: 0, name: '남자 A', url: '/assets/profiles/male-a.png'},
-  {id: 1, name: '여자 A', url: '/assets/profiles/female-a.png'},
+  {id: 0, name: '남자 A', url: '/assets/profiles/male-a.webp'},
+  {id: 1, name: '여자 A', url: '/assets/profiles/female-a.webp'},
 ] as const;
 export const STARTER_FRAMES = [
   {id: 'classic', name: '테두리 없음'},

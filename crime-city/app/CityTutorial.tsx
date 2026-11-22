@@ -46,11 +46,11 @@ export default function CityTutorial({user,scale,preview=false,onProgress,onName
   <div className="tutorial-canvas" style={{'--tutorial-scale':scale} as CSSProperties}>
    {highlight&&<div className="tutorial-highlight" style={{left:highlight.x,top:highlight.y,width:highlight.width,height:highlight.height}}/>}
    <button ref={advanceButton} className="tutorial-advance" aria-label={naming?'코드네임 확정':'다음 안내'} aria-describedby={naming?'tutorial-name-help':'tutorial-line'} disabled={busy} onClick={advance}/>
-   {!naming&&step>0&&<img className="tutorial-han" src="/assets/tutorial/han.png" alt="정보요원 한" draggable={false}/>}
+   {!naming&&step>0&&<img className="tutorial-han" src="/assets/tutorial/han.webp" alt="정보요원 한" draggable={false}/>}
    {!naming&&<div className="tutorial-bottom-shade"/>}
    <div className="tutorial-controls"><button className={auto?'active':''} aria-label="자동 진행" aria-pressed={auto} disabled={naming||busy} onClick={()=>setAuto(value=>!value)}>AUTO<Arrow/></button><button aria-label="튜토리얼 건너뛰기" disabled={busy||naming} onClick={skip}>SKIP<Arrow/></button></div>
    {naming?<>
-    <img className="tutorial-name-decor" src="/assets/tutorial/codename-decor.png" alt="" draggable={false}/>
+    <img className="tutorial-name-decor" src="/assets/tutorial/codename-decor.webp" alt="" draggable={false}/>
     <form className="tutorial-name-form" onSubmit={event=>{event.preventDefault();void submitName();}}>
      <input ref={input} aria-label="당신의 코드네임" aria-describedby="tutorial-name-help" value={draft} placeholder="당신의 코드네임을 알려주세요." minLength={2} maxLength={12} autoComplete="off" spellCheck={false} readOnly={preview} disabled={busy} onCompositionStart={()=>{composing.current=true;}} onCompositionEnd={()=>{composing.current=false;}} onKeyDown={event=>{if(event.nativeEvent.isComposing&&event.key==='Enter')event.preventDefault();}} onChange={event=>{setDraft(event.target.value);setError('');}}/>
      <button className="tutorial-prompt" type="submit" disabled={busy}>{busy?'정보를 확인하고 있습니다…':'Enter 또는 클릭해서 코드네임 확정하기'}</button>
@@ -61,4 +61,4 @@ export default function CityTutorial({user,scale,preview=false,onProgress,onName
   </div>
  </div>;
 }
-function Arrow(){return <span className="tutorial-arrow" aria-hidden="true"><img src="/assets/tutorial/intro-1.png" alt=""/></span>;}
+function Arrow(){return <span className="tutorial-arrow" aria-hidden="true"><img src="/assets/tutorial/intro-1.webp" alt=""/></span>;}

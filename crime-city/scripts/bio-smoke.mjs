@@ -60,7 +60,7 @@ try{
  // Legacy profile forms that omit bio must preserve its current database value.
  await call('profile',{avatar:0,frame:'crimson'},account);
  const preserved=await me();
- equal(preserved,{...concurrent,avatar:0,avatarUrl:'/assets/profiles/male-a.png',frame:'crimson'});
+ equal(preserved,{...concurrent,avatar:0,avatarUrl:'/assets/profiles/male-a.webp',frame:'crimson'});
  await call('profile',{avatar:0,frame:'crimson',bio:13},account,400);
  equal(await me(),preserved);
 
