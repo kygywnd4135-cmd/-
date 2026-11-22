@@ -18,19 +18,32 @@
 
 .start-menu{position:absolute;inset:0;pointer-events:none}
 .start-button{position:absolute;top:937px;width:490.5px;height:77px;padding:0;border:0;background:none;color:#cacaca;font:inherit;cursor:pointer;pointer-events:auto;clip-path:polygon(70px 0,100% 0,calc(100% - 70px) 100%,0 100%);outline:none}
-.start-button.slot-0{left:261px}
-.start-button.slot-1{left:710.5px}
-.start-button.slot-2{left:1156px}
+.start-button.slot-0{left:490px}
+.start-button.slot-1{left:939.5px}
 .start-button-shape{position:absolute;left:-1.2px;top:-.5px;width:491.7px;height:77.5px;transition:filter .18s ease}
 .start-button-label{position:absolute;left:244px;top:12px;transform:translateX(-50%);white-space:nowrap;font-size:35px;font-weight:700;line-height:normal;transition:color .18s ease}
 .start-button.is-selected{color:#fff}
-.start-button.is-selected.slot-1 .start-button-label{top:11px}
 .start-button:hover .start-button-shape{filter:brightness(1.12)}
 .start-button:focus-visible .start-button-shape{filter:brightness(1.18) drop-shadow(0 0 6px rgba(255,53,53,.8))}
 .start-button:disabled{cursor:progress}
 
 .start-notice{position:absolute;left:169px;top:1035px;margin:0;padding:0;transform:translateX(-50%);list-style:disc inside;white-space:nowrap;color:#878787;font-size:20px;font-weight:700;line-height:normal}
 .start-version{position:absolute;left:1850.5px;top:1035px;margin:0;transform:translateX(-50%);white-space:nowrap;color:#878787;font-size:20px;font-weight:700;line-height:normal}
+
+/* Signed in (Figma 메인화면2, 1098:79): split line and an "any key" prompt. */
+.start-line-left{position:absolute;left:0;top:976px;width:803px;height:3px}
+.start-line-right{position:absolute;left:1111px;top:979px;width:809px;height:3px;transform:rotate(180deg)}
+.start-screen.is-prompt{cursor:pointer}
+.start-prompt{position:absolute;left:960px;top:963px;transform:translateX(-50%);padding:0;border:0;background:none;color:#e60000;font:inherit;font-size:26px;font-weight:700;line-height:normal;white-space:nowrap;cursor:pointer;animation:start-prompt-breathe 2.4s ease-in-out infinite}
+.start-prompt span{display:block}
+.start-prompt:focus-visible{outline:2px solid #ff3535;outline-offset:6px}
+.start-prompt.is-glitch{animation:none}
+.start-prompt.is-glitch span{animation:start-glitch-label .42s steps(1,end) both}
+.start-prompt.is-glitch::before,.start-prompt.is-glitch::after{content:attr(data-label);position:absolute;left:50%;top:0;transform:translateX(-50%);white-space:nowrap;pointer-events:none;mix-blend-mode:screen}
+.start-prompt.is-glitch::before{color:#ff1f3d;animation:start-glitch-red .42s steps(1,end) both}
+.start-prompt.is-glitch::after{color:#29e6ff;animation:start-glitch-cyan .42s steps(1,end) both}
+.start-connecting{position:absolute;left:960px;top:965px;margin:0;transform:translateX(-50%);white-space:nowrap;color:#878787;font-size:22px;font-weight:700}
+@keyframes start-prompt-breathe{0%,100%{opacity:1}50%{opacity:.55}}
 
 /* Volume: one click opens the drag slider, a double click toggles mute. */
 .start-sound{position:absolute;left:1839px;top:22px;width:57px;height:57px}
@@ -54,7 +67,6 @@
 .start-button.is-glitch .start-button-shape{animation:start-glitch-shape .42s steps(1,end) both}
 .start-button.is-glitch .start-button-label{animation:start-glitch-label .42s steps(1,end) both}
 .start-button.is-glitch::before,.start-button.is-glitch::after{content:attr(data-label);position:absolute;left:244px;top:12px;transform:translateX(-50%);white-space:nowrap;font-size:35px;font-weight:700;line-height:normal;pointer-events:none;mix-blend-mode:screen}
-.start-button.is-glitch.slot-1::before,.start-button.is-glitch.slot-1::after{top:11px}
 .start-button.is-glitch::before{color:#ff1f3d;animation:start-glitch-red .42s steps(1,end) both}
 .start-button.is-glitch::after{color:#29e6ff;animation:start-glitch-cyan .42s steps(1,end) both}
 .start-screen.is-glitching .start-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 2px,transparent 2px 5px);mix-blend-mode:overlay;animation:start-glitch-screen .42s steps(1,end) both}
@@ -67,4 +79,4 @@
 @keyframes start-glitch-screen{0%{opacity:0}10%{opacity:1;transform:translateY(-3px)}30%{opacity:.4;transform:translateY(2px)}50%{opacity:1;transform:none}70%{opacity:.3}90%,100%{opacity:0}}
 @keyframes start-glitch-bg{0%{transform:none;filter:none}14%{transform:translateX(-4px);filter:saturate(1.5) hue-rotate(-8deg)}28%{transform:translateX(3px);filter:none}46%{transform:translateX(-2px) skewX(-1deg);filter:brightness(1.15)}64%{transform:none;filter:none}100%{transform:none;filter:none}}
 
-@media (prefers-reduced-motion:reduce){.start-button-shape,.start-button-label{transition:none}}
+@media (prefers-reduced-motion:reduce){.start-button-shape,.start-button-label{transition:none}.start-prompt{animation:none}}

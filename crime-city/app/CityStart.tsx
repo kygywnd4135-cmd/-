@@ -1,14 +1,15 @@
 'use client';
 import {useEffect,useLayoutEffect,useRef,useState,type CSSProperties} from 'react';
 
-// Start screen from Figma "메인화면" (node 961:3): one 1920 x 1080 canvas scaled as a whole.
+// Start screen from Figma "메인화면" (961:3, signed out) and "메인화면2" (1098:79, signed in):
+// one 1920 x 1080 canvas scaled as a whole.
 type Props={
  scale:number;
  loaded:boolean;
  signedIn:boolean;
  onSignup:()=>void;
  onEnter:()=>void;
- onAuth:()=>void;
+ onLogin:()=>void;
 };
 
 const VOLUME_KEY='crime-start-bgm-volume',MUTED_KEY='crime-start-bgm-muted';
@@ -20,11 +21,14 @@ function readFlag(key:string){try{return localStorage.getItem(key)==='1';}catch{
 function save(key:string,value:string){try{localStorage.setItem(key,value);}catch{}}
 const reducedMotion=()=>typeof window!=='undefined'&&window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth}:Props){
+const PROMPT=-1;
+// Keys that should not count as "any key".
+const IGNORED_KEYS=new Set(['Shift','Control','Alt','Meta','CapsLock','Tab','Escape','Fn','Process','Unidentified']);
+
+export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onLogin}:Props){
  const buttons=[
   {label:'회원가입',run:onSignup},
-  {label:'서버 입장하기',run:onEnter},
-  {label:signedIn?'로그아웃':'로그인',run:onAuth},
+  {label:'로그인',run:onLogin},
  ];
  const[selected,setSelected]=useState(1),[glitch,setGlitch]=useState<number|null>(null);
  const[volume,setVolume]=useState(DEFAULT_VOLUME),[muted,setMuted]=useState(false),[sliderOpen,setSliderOpen]=useState(false);
@@ -59,26 +63,29 @@ export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth
  }
 
  function activate(index:number){
-  if(busy)return;
-  if(index===1&&!loaded)return;
-  setSelected(index);
-  if(reducedMotion()){buttons[index].run();return;}
+  if(busy||glitchTimer.current)return;
+  const run=index===PROMPT?onEnter:buttons[index].run;
+  if(index!==PROMPT)setSelected(index);
+  if(reducedMotion()){run();return;}
   setGlitch(index);
-  glitchTimer.current=setTimeout(()=>{setGlitch(null);buttons[index].run();},GLITCH_MS);
+  glitchTimer.current=setTimeout(()=>{glitchTimer.current=null;setGlitch(null);run();},GLITCH_MS);
  }
+ const ready=loaded&&fit!==null,promptMode=ready&&signedIn;
 
  useEffect(()=>{
   function key(e:KeyboardEvent){
    const target=e.target as HTMLElement;
-   if(['INPUT','TEXTAREA','SELECT'].includes(target.tagName)||target.closest('[role="dialog"]'))return;
-   if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();setSelected(n=>(n+(e.key==='ArrowRight'?1:-1)+3)%3);}
+   if(['INPUT','TEXTAREA','SELECT'].includes(target.tagName)||target.closest('[role="dialog"]')||target.closest('.start-sound'))return;
+   if(promptMode){if(!e.repeat&&!IGNORED_KEYS.has(e.key)&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();activate(PROMPT);}return;}
+   if(!ready)return;
+   if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();setSelected(n=>(n+(e.key==='ArrowRight'?1:-1)+2)%2);}
    else if(e.key==='Enter'&&!e.repeat&&!target.closest('button')){e.preventDefault();activate(selected);}
   }
   window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);
  });
 
  const silent=muted||volume===0;
- return <section className={'start-screen'+(busy?' is-glitching':'')+(fit===null?' is-measuring':'')} style={{'--start-scale':fit??scale} as CSSProperties}>
+ return <section className={'start-screen'+(busy?' is-glitching':'')+(fit===null?' is-measuring':'')+(promptMode?' is-prompt':'')} style={{'--start-scale':fit??scale} as CSSProperties} onClick={e=>{if(promptMode&&!(e.target as HTMLElement).closest('.start-sound'))activate(PROMPT);}}>
   <div className="start-stage">
    <img className="start-background" src="/assets/start/background.jpg" alt="" draggable={false}/>
    <div className="start-shade" aria-hidden="true"/>
@@ -86,13 +93,19 @@ export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth
    <p className="start-subtitle">온라인 머더 미스터리 플랫폼</p>
    <div className="start-season"><img src="/assets/start/season-logo.webp" alt="죽음이 피어오르는 도시" draggable={false}/></div>
    <p className="start-season-number">SEASON.01</p>
-   <img className="start-line" src="/assets/start/line.svg" alt="" aria-hidden="true" draggable={false}/>
-   <nav className="start-menu" aria-label="시작 메뉴">
-    {buttons.map((b,i)=><button key={i} type="button" className={'start-button slot-'+i+(selected===i?' is-selected':'')+(glitch===i?' is-glitch':'')} data-label={b.label} aria-current={selected===i?'true':undefined} disabled={i===1&&!loaded} onMouseEnter={()=>!busy&&setSelected(i)} onFocus={()=>!busy&&setSelected(i)} onClick={()=>activate(i)}>
-     <img className="start-button-shape" src={selected===i?'/assets/start/button-active.svg':'/assets/start/button.svg'} alt="" aria-hidden="true" draggable={false}/>
-     <span className="start-button-label">{i===1&&!loaded?'연결 중…':b.label}</span>
-    </button>)}
-   </nav>
+   {promptMode?<>
+    <img className="start-line-left" src="/assets/start/line-left.svg" alt="" aria-hidden="true" draggable={false}/>
+    <img className="start-line-right" src="/assets/start/line-right.svg" alt="" aria-hidden="true" draggable={false}/>
+    <button type="button" className={'start-prompt'+(glitch===PROMPT?' is-glitch':'')} data-label="아무 키를 눌러 서버 입장" onClick={e=>{e.stopPropagation();activate(PROMPT);}}><span>아무 키를 눌러 서버 입장</span></button>
+   </>:<>
+    <img className="start-line" src="/assets/start/line.svg" alt="" aria-hidden="true" draggable={false}/>
+    {ready?<nav className="start-menu" aria-label="시작 메뉴">
+     {buttons.map((b,i)=><button key={i} type="button" className={'start-button slot-'+i+(selected===i?' is-selected':'')+(glitch===i?' is-glitch':'')} data-label={b.label} aria-current={selected===i?'true':undefined} onMouseEnter={()=>!busy&&setSelected(i)} onFocus={()=>!busy&&setSelected(i)} onClick={()=>activate(i)}>
+      <img className="start-button-shape" src={selected===i?'/assets/start/button-active.svg':'/assets/start/button.svg'} alt="" aria-hidden="true" draggable={false}/>
+      <span className="start-button-label">{b.label}</span>
+     </button>)}
+    </nav>:<p className="start-connecting">서버에 연결하는 중…</p>}
+   </>}
    <ul className="start-notice"><li>일부 컨텐츠는 AI로 생성되었습니다.</li></ul>
    <p className="start-version">버전 : 1.0.1</p>
    <div className="start-sound" ref={soundWrap}>
