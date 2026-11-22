@@ -2,6 +2,8 @@
 //
 //   node scripts/deploy-cloudflare.mjs setup    # create the D1 database once, save its id
 //   node scripts/deploy-cloudflare.mjs deploy   # build, apply pending migrations, deploy
+//   node scripts/deploy-cloudflare.mjs migrate  # apply pending migrations only
+//   node scripts/deploy-cloudflare.mjs ci       # Workers Builds deploy command (after npm run build)
 //
 // Needs CLOUDFLARE_API_TOKEN (and CLOUDFLARE_ACCOUNT_ID when the token can see
 // several accounts). The database id is not a secret and is kept in
@@ -17,7 +19,7 @@ const builtConfig = path.join(root, 'dist/server/wrangler.json');
 const deployConfig = path.join(root, 'dist/server/wrangler.deploy.json');
 const wranglerBin = path.join(root, 'node_modules/wrangler/bin/wrangler.js');
 
-const defaults = { workerName: 'crime-city', databaseName: 'crime-city-db', databaseId: '' };
+const defaults = { workerName: 'crime-city', databaseName: 'crime-city-db', location: 'apac', databaseId: '' };
 const readConfig = () => ({ ...defaults, ...(fs.existsSync(configFile) ? JSON.parse(fs.readFileSync(configFile, 'utf8')) : {}) });
 const writeConfig = (config) => fs.writeFileSync(configFile, JSON.stringify(config, null, 2) + '\n');
 
@@ -44,7 +46,7 @@ function setup() {
   const list = JSON.parse(wrangler(['d1', 'list', '--json'], { capture: true }));
   let database = list.find((item) => item.name === config.databaseName);
   if (!database) {
-    wrangler(['d1', 'create', config.databaseName]);
+    wrangler(['d1', 'create', config.databaseName, '--location', config.location]);
     database = JSON.parse(wrangler(['d1', 'list', '--json'], { capture: true })).find((item) => item.name === config.databaseName);
   }
   if (!database?.uuid) throw new Error('Could not find the created D1 database id.');
@@ -75,12 +77,32 @@ function deploy() {
   wrangler(['deploy', '--config', deployConfig]);
 }
 
+// Deploy command for Cloudflare Workers Builds (Git integration): the build
+// step has already run `npm run build`. Migrations are applied separately with
+// `node scripts/deploy-cloudflare.mjs migrate`.
+function ciDeploy() {
+  const config = readConfig();
+  if (!config.databaseId) throw new Error('cloudflare.deploy.json has no databaseId.');
+  writeDeployConfig(config);
+  wrangler(['deploy', '--config', deployConfig]);
+}
+
+function migrate() {
+  const config = readConfig();
+  if (!config.databaseId) throw new Error('Run "node scripts/deploy-cloudflare.mjs setup" first.');
+  if (!fs.existsSync(builtConfig)) run('npm', ['run', 'build']);
+  writeDeployConfig(config);
+  wrangler(['d1', 'migrations', 'apply', config.databaseName, '--remote', '--config', deployConfig]);
+}
+
 const command = process.argv[2];
 try {
   if (command === 'setup') setup();
   else if (command === 'deploy') deploy();
+  else if (command === 'ci') ciDeploy();
+  else if (command === 'migrate') migrate();
   else {
-    console.log('Usage: node scripts/deploy-cloudflare.mjs <setup|deploy>');
+    console.log('Usage: node scripts/deploy-cloudflare.mjs <setup|deploy|ci|migrate>');
     process.exitCode = 1;
   }
 } catch (error) {
