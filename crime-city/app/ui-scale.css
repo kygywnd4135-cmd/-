@@ -1,0 +1,6 @@
+/* Auto-generated (not Figma/PDF-designed) dialogs read too small on the 1920 canvas.
+   Enlarge every shared <Modal> by 30% on desktop-sized windows. zoom also scales
+   viewport units inside the dialog, so the size limits are divided back by 1.3. */
+@media (min-width:900px) and (min-height:600px){
+  .crime-app .modal{zoom:1.3;max-height:calc((100dvh - 40px) / 1.3)!important;max-width:calc((100vw - 40px) / 1.3)}
+}

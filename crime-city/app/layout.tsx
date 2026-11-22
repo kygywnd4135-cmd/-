@@ -22,6 +22,7 @@ import "./shop.css";
 import "./tutorial.css";
 import "./interactions.css";
 import "./start.css";
+import "./ui-scale.css";
 
 export const metadata: Metadata = {
   title: "Crime City — 모두에겐 비밀이 있다",
