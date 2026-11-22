@@ -1,6 +1,7 @@
 /* Start screen: Figma "메인화면" (961:3). Coordinates are the 1920 x 1080 frame values. */
-.start-screen{position:fixed;inset:0;z-index:1;display:grid;place-items:center;overflow:hidden;background:#000;font-family:'SUITE Variable',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
-.start-stage{position:relative;flex:none;width:1920px;height:1080px;overflow:hidden;transform:scale(var(--start-scale,1));transform-origin:center}
+.start-screen{position:fixed;inset:0;z-index:1;overflow:hidden;background:#000;font-family:'SUITE Variable',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+.start-stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;transform:translate(-50%,-50%) scale(var(--start-scale,1));transform-origin:center}
+.start-screen.is-measuring .start-stage{visibility:hidden}
 .start-stage img{display:block;max-width:none;pointer-events:none}
 .start-background{position:absolute;left:0;top:0;width:1920px;height:1080px;object-fit:cover}
 .start-shade{position:absolute;left:0;top:0;width:1920px;height:1080px;background:linear-gradient(180deg,rgba(0,0,0,0) 9.861%,rgba(0,0,0,.8) 70.602%)}

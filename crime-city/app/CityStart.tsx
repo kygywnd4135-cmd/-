@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useRef,useState,type CSSProperties} from 'react';
+import {useEffect,useLayoutEffect,useRef,useState,type CSSProperties} from 'react';
 
 // Start screen from Figma "메인화면" (node 961:3): one 1920 x 1080 canvas scaled as a whole.
 type Props={
@@ -30,6 +30,9 @@ export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth
  const[volume,setVolume]=useState(DEFAULT_VOLUME),[muted,setMuted]=useState(false),[sliderOpen,setSliderOpen]=useState(false);
  const audio=useRef<HTMLAudioElement|null>(null),clickTimer=useRef<ReturnType<typeof setTimeout>|null>(null),glitchTimer=useRef<ReturnType<typeof setTimeout>|null>(null),soundWrap=useRef<HTMLDivElement>(null);
  const busy=glitch!==null;
+ // Measure the window before the first paint so the canvas never flashes at full size.
+ const[fit,setFit]=useState<number|null>(null);
+ useLayoutEffect(()=>{const measure=()=>setFit(Math.min(window.innerWidth/1920,window.innerHeight/1080));measure();window.addEventListener('resize',measure);return()=>window.removeEventListener('resize',measure);},[]);
 
  // Background music: browsers only allow sound after the first interaction, so retry on the first input.
  useEffect(()=>{
@@ -75,7 +78,7 @@ export default function CityStart({scale,loaded,signedIn,onSignup,onEnter,onAuth
  });
 
  const silent=muted||volume===0;
- return <section className={'start-screen'+(busy?' is-glitching':'')} style={{'--start-scale':scale} as CSSProperties}>
+ return <section className={'start-screen'+(busy?' is-glitching':'')+(fit===null?' is-measuring':'')} style={{'--start-scale':fit??scale} as CSSProperties}>
   <div className="start-stage">
    <img className="start-background" src="/assets/start/background.jpg" alt="" draggable={false}/>
    <div className="start-shade" aria-hidden="true"/>
