@@ -19,7 +19,6 @@ import "./level-up.css";
 import "./inventory.css";
 import "./currency.css";
 import "./shop.css";
-import "./tutorial.css";
 import "./interactions.css";
 import "./start.css";
 import "./ui-scale.css";

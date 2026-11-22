@@ -2,7 +2,6 @@ import { env } from 'cloudflare:workers';
 import {handleInventory} from './inventory-server';
 import {handleFriends} from './friends-server';
 import {handleShop} from './shop-server';
-import {handleTutorial} from './tutorial-server';
 import { getNicknameIssue, nicknameMessages, normalizeNickname, NICKNAME_CHANGE_INTERVAL } from './nickname';
 import { isOwnedTitle, STARTER_TITLES } from './titles';
 import { avatarUrl, isStarterAvatar, isStarterFrame } from './appearance';
@@ -54,7 +53,6 @@ function googleConfig(req:Request){
 }
 export async function handleCity(req:Request,path:string[],body:any,c:Context):Promise<Response|null>{
  const {db,json,fail}=c;const route=path[0],method=req.method;
- const tutorial=await handleTutorial(req,path,body,c);if(tutorial)return tutorial;
  const inventory=await handleInventory(req,path,body,c);if(inventory)return inventory;
  const friends=await handleFriends(req,path,body,c);if(friends)return friends;
  const shop=await handleShop(req,path,body,c);if(shop)return shop;
