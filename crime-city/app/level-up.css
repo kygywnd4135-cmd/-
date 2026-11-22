@@ -1,7 +1,8 @@
 /* Exact 1920 x 1080 layout from the user's 레벨업.pdf.
-   Heir of Light is an installed local face; no font binary is distributed.
+   Heir of Light (Neople free font) prefers an installed face, else the bundled woff2 in /fonts.
    Korean reward copy and the dismissal use the current SUITE UI font. */
-@font-face {font-family:'Crime Heir of Light';src:local('Heir of Light Regular'),local('HeirofLightRegular'),local('빛의 계승자 Regular');font-weight:400;font-style:normal;font-display:swap;}
+@font-face {font-family:'Crime Heir of Light';src:local('Heir of Light Regular'),local('HeirofLightRegular'),local('빛의 계승자 Regular'),url('/fonts/HeirofLight-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face {font-family:'Crime Heir of Light';src:local('Heir of Light Bold'),local('HeirofLightBold'),local('빛의 계승자 Bold'),url('/fonts/HeirofLight-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap;}
 .city-levelup-overlay {position:fixed;inset:0;z-index:300;background:linear-gradient(0deg,#300606c9 0%,#0000 30%),#000b;backdrop-filter:blur(5px);color:#ff9696;cursor:pointer;animation:levelup-backdrop .65s ease-out both;}
 .city-levelup-canvas {position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--levelup-scale,1));transform-origin:center;pointer-events:none;font-family:var(--font-ui);}
 .levelup-ambient {position:absolute;left:660px;top:195px;width:616px;height:590px;background:radial-gradient(ellipse,#70111124,transparent 69%);animation:levelup-ambient 2.7s ease-out both;}
