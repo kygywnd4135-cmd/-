@@ -19,7 +19,7 @@ import {CityLogo,DetectiveArt} from './CityArt';
 import {cityApi,CityAuth,CityCreateRoom,CityScenarios} from './CityPanels';
 import CityStart from './CityStart';
 import CityStory from './CityStory';
-import {useCityLoader} from './CityLoading';
+import {CityLoadingScreen,useCityLoader} from './CityLoading';
 
 const banners=[{over:'첫 번째 사건 · 지금 플레이 가능',title:'백야제',sub:'일곱 번째 이름',copy:'그날 밤, 누구의 이야기를 믿으시겠습니까?'},{over:'처음 오셨나요?',title:'당신의 첫 번째 추리',sub:'NPC 5명과 함께 연습하기',copy:'부담 없이, 사건의 흐름부터 알아보세요.'},{over:'NEXT CHAPTER · 공개 준비 중',title:'오리엔트 03:17',sub:'마지막 객실',copy:'예약되지 않은 승객이 당신을 기다립니다.'},{over:'WELCOME TO CRIME CITY',title:'모두에겐 비밀이 있다',sub:'함께 완성하는 하나의 이야기',copy:'거짓말과 진실 사이에서, 나만의 답을 찾으세요.'}];
 const notices=[{title:'처음 오셨다면, 꼭 읽어주세요.',date:'2026.10.21',important:true,body:'현재 백야제 1개 시나리오를 플레이할 수 있습니다. 6명이 함께 입장하거나 NPC와 혼자 체험해 보세요. 역할지의 비밀은 자신에게만 보입니다.'},{title:'백야제 — 일곱 번째 이름을 만나보세요.',date:'2026.10.21',body:'청람대학교 개교 100주년의 밤. 여섯 명의 학생과 25년 전 사라진 기록이 하나의 사건으로 이어집니다. 플레이 인원 6명, 약 60분입니다.'},{title:'친구 초대·설정 메뉴는 준비 중입니다.',date:'2026.10.21',body:'친구와 함께하기와 설정 메뉴는 아직 비공개입니다. 메인 로비의 방 만들기와 방 입장은 이용할 수 있습니다.'}];
@@ -101,7 +101,7 @@ export default function CrimeCity(){
  {nicknameNotice&&<div className="city-nickname-toast" role="status" aria-live="polite"><Check size={16}/><span>{nicknameNotice}</span></div>}
  {toast&&<div className="city-toast" role="status"><Info size={16}/><span>{toast}</span><button aria-label="알림 닫기" onClick={()=>setToast('')}><X size={14}/></button></div>}
  {!room&&screen==='lobby'&&!modal&&!needsNickname(user)&&article===null&&(levelUp||levelPreview)&&<CityLevelUp advance={(levelUp||levelPreview)!} scale={lobbyScale} onChime={levelChime} onClose={()=>{setLevelUp(null);setLevelPreview(null);}}/>}
- <div className={'city-transition '+(veil?'visible':'')} aria-hidden="true"><CityLogo small/></div>
+ <div className={'city-transition '+(veil?'visible':'')} aria-hidden="true"><CityLoadingScreen progress={1} leaving={false}/></div>
  </div>
 }
 function KeyIcon(){return <ShieldCheck size={26} strokeWidth={1.3}/>;}
