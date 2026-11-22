@@ -1,7 +1,6 @@
 import { env } from 'cloudflare:workers';
 import {handleInventory} from './inventory-server';
 import {handleFriends} from './friends-server';
-import {handleShop} from './shop-server';
 import { getNicknameIssue, nicknameMessages, normalizeNickname, NICKNAME_CHANGE_INTERVAL } from './nickname';
 import { isOwnedTitle, STARTER_TITLES } from './titles';
 import { avatarUrl, isStarterAvatar, isStarterFrame } from './appearance';
@@ -55,7 +54,6 @@ export async function handleCity(req:Request,path:string[],body:any,c:Context):P
  const {db,json,fail}=c;const route=path[0],method=req.method;
  const inventory=await handleInventory(req,path,body,c);if(inventory)return inventory;
  const friends=await handleFriends(req,path,body,c);if(friends)return friends;
- const shop=await handleShop(req,path,body,c);if(shop)return shop;
  const appearance=await handleAppearance(req,path,body,c);if(appearance)return appearance;
  const expanded=await handleExpandedProfile(req,path,body,c);if(expanded)return expanded;
  if(route==='profiles'&&method==='GET'){

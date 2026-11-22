@@ -18,7 +18,6 @@ import "./friend-feedback.css";
 import "./level-up.css";
 import "./inventory.css";
 import "./currency.css";
-import "./shop.css";
 import "./interactions.css";
 import "./start.css";
 import "./story.css";

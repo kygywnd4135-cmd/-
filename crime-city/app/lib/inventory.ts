@@ -5,7 +5,7 @@ export type InventorySettings = {query: string; sort: InventorySort; expiryAlert
 export type InventoryEntry = {id: string; quantity: number; equipped: boolean; locked: boolean; acquiredAt: number; expiresAt: number | null; deletedAt: number | null};
 export type InventoryState = {entries: InventoryEntry[]; settings: InventorySettings; mutationId?: string};
 export type InventoryItem = InventoryEntry & {name: string; category: InventoryItemCategory; rarity: number; setName: string; subtitle: string; description: string; art: string; slot?: string};
-export type InventoryView = {items: InventoryItem[]; settings: InventorySettings; revision: number; points: number; primacyTokens: number; demo: boolean};
+export type InventoryView = {items: InventoryItem[]; settings: InventorySettings; revision: number; points: number; demo: boolean};
 
 export const inventoryCatalog = [
   {id:'wanderer',name:'자유로운 방랑자 스킨',category:'skin',rarity:1,setName:'서부의 방랑자',subtitle:'캐릭터 스킨 : 여자 A',description:'무언의 압박이 느껴지는 서부의 방랑자 여자 A 스킨이다.\n장착시 여자A 역할군의 일러스트가 변경된다.',art:'wanderer',slot:'female-a'},

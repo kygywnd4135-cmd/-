@@ -32,14 +32,14 @@ eq(inventoryItems(state),items);
 try{
  const a=await make('A'),b=await make('B'),pending=await make('C',true);
  await call('inventory',undefined,undefined,401);await call('inventory',undefined,pending,403);
- let v=await read(a);eq(v.items.length,8);eq(v.points,0);eq(v.primacyTokens,0);eq(v.revision,0);
- eq((await call('me',undefined,a)).data.user.primacyTokens,v.primacyTokens);
+ let v=await read(a);eq(v.items.length,8);eq(v.points,0);eq('primacyTokens' in v,false);eq(v.revision,0);
+ eq('primacyTokens' in (await call('me',undefined,a)).data.user,false);
  await call('inventory/item',{revision:v.revision,itemId:'wanderer',action:'lock',primacyTokens:999},a,400);
  await call('inventory/settings',{revision:v.revision,settings:defaultInventorySettings},undefined,401);
  await call('inventory/item',{revision:v.revision,itemId:'wanderer',action:'lock'},pending,403);
  await call('inventory/item',{revision:v.revision,userId:b.id,itemId:'wanderer',action:'lock'},a,400);
  await call('inventory/item',{revision:v.revision,itemId:'wanderer',action:'lock'},a,403,{origin:'https://untrusted.example'});
- v=await item(a,v,'wanderer','lock');eq(v.items.find(x=>x.id==='wanderer').locked,true);eq(v.primacyTokens,0);
+ v=await item(a,v,'wanderer','lock');eq(v.items.find(x=>x.id==='wanderer').locked,true);eq('primacyTokens' in v,false);
  await item(a,v,'wanderer','delete',400);eq((await read(b)).items.find(x=>x.id==='wanderer').locked,false);
  await call('inventory/item',{revision:0,itemId:'wanderer',action:'lock'},a,409);
  v=await item(a,v,'wanderer','lock');eq(v.items.find(x=>x.id==='wanderer').locked,false);

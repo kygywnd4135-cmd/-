@@ -31,8 +31,8 @@ function seedOwnFixture(account){
 async function wallet(account,expected){
   const me=(await call('me',undefined,account)).data.user;
   const inventory=(await call('inventory',undefined,account)).data;
-  eq([me.points,me.primacyTokens],[expected,expected]);
-  eq([inventory.points,inventory.primacyTokens],[expected,expected]);
+  eq([me.points,'primacyTokens' in me],[expected,false]);
+  eq([inventory.points,'primacyTokens' in inventory],[expected,false]);
   return inventory;
 }
 try{

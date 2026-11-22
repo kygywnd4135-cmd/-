@@ -14,7 +14,7 @@ const art=(name:string)=>'/assets/inventory/'+name+'.webp';
 function FilterMark(){return <svg width="35" height="34" viewBox="0 0 35 34" aria-hidden="true"><path d="M1 1H34V9L20 17V29L14 33V17L1 9Z" fill="currentColor"/></svg>;}
 function ItemArt({item,large=false}:{item:InventoryItem;large?:boolean}){return item.art==='placeholder'?<span className={'inventory-placeholder'+(large?' large':'')}><img src={art('placeholder')} alt="" draggable={false}/></span>:<img className={'inventory-item-art '+item.art} src={art(item.art)} alt="" draggable={false}/>;}
 
-export default function CityInventory({scale,onClose,onWalletChange}:{scale:number;onClose:()=>void;onWalletChange?:(wallet:{points:number;primacyTokens:number})=>void}){
+export default function CityInventory({scale,onClose,onWalletChange}:{scale:number;onClose:()=>void;onWalletChange?:(wallet:{points:number})=>void}){
   const[data,setData]=useState<InventoryView|null>(null),[loadError,setLoadError]=useState(''),[attempt,setAttempt]=useState(0);
   const[category,setCategory]=useState<InventoryCategory>('all'),[selectedId,setSelectedId]=useState('wanderer');
   const[filterOpen,setFilterOpen]=useState(false),[draft,setDraft]=useState<InventorySettings>({...defaultInventorySettings});
@@ -53,7 +53,7 @@ export default function CityInventory({scale,onClose,onWalletChange}:{scale:numb
   async function request(path:string,body:Record<string,unknown>){
     if(busyRef.current||!dataRef.current)return false;
     busyRef.current=true;setBusy(true);
-    try{const result=await cityApi('inventory/'+path,{revision:dataRef.current.revision,...body});if(!mounted.current)return false;dataRef.current=result;setData(result);onWalletChange?.({points:result.points,primacyTokens:result.primacyTokens});return true;}
+    try{const result=await cityApi('inventory/'+path,{revision:dataRef.current.revision,...body});if(!mounted.current)return false;dataRef.current=result;setData(result);onWalletChange?.({points:result.points});return true;}
     catch(error:any){if(mounted.current){setMessage(error.message||'인벤토리를 변경하지 못했습니다.');if(error.message?.includes('다른 창'))cityApi('inventory').then(result=>{if(mounted.current){dataRef.current=result;setData(result);}}).catch(()=>{});}return false;}
     finally{busyRef.current=false;if(mounted.current)setBusy(false);}
   }
@@ -78,7 +78,6 @@ export default function CityInventory({scale,onClose,onWalletChange}:{scale:numb
             {!items.length&&<div className="inventory-empty">{data.settings.query?'검색 조건에 맞는 아이템이 없습니다.':'보유한 아이템이 없습니다.'}</div>}
           </div>
           <CityCurrencyBalance kind="points" amount={data.points} className="inventory-points"/>
-          <CityCurrencyBalance kind="primacy" amount={data.primacyTokens} className="inventory-primacy"/>
           <section className="inventory-detail" aria-label="선택한 아이템 정보">
             {selected?<>
               <div className="inventory-detail-art"><img className="inventory-detail-facets" src="/assets/inventory/detail-facets.svg?v=2" alt="" aria-hidden="true"/><p className="inventory-item-subtitle">{selected.subtitle}</p><div className="inventory-detail-picture"><ItemArt item={selected} large/></div><span className="inventory-detail-status">{expired?'기간 만료':selected.equipped?'장착중':'보유중'}</span><button className={'inventory-lock'+(protectedItem?' locked':'')} aria-label={protectedItem?'아이템 잠금 해제':'아이템 잠금'} aria-pressed={protectedItem} disabled={busy} title={protectedItem?'삭제 잠금 적용중':'삭제 잠금'} onClick={()=>act('lock')}><img src={art('lock')} alt=""/></button><button className="inventory-delete" aria-label="아이템 삭제" disabled={busy||protectedItem} title={protectedItem?'잠금을 해제한 뒤 삭제할 수 있습니다.':'아이템 삭제'} onClick={()=>act('delete')}><img src={art('delete')} alt=""/></button></div>

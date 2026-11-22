@@ -29,7 +29,7 @@
   box-shadow: 0 5px 20px #0000000a;
 }
 .is-lobby .city-panel:before { background: none; }
-.city-shop, .city-event, .city-friends { border-color: var(--line); background: var(--well); }
+.city-event, .city-friends { border-color: var(--line); background: var(--well); }
 .is-lobby .city-tool,
 .is-lobby .city-my-account { color: var(--muted); }
 .is-lobby .city-tool:hover,

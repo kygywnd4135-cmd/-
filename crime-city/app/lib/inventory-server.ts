@@ -35,6 +35,6 @@ export async function handleInventory(req:Request,path:string[],body:any,c:Conte
     if(!result.meta.changes)throw c.fail('다른 창에서 인벤토리가 변경되었습니다. 다시 확인해주세요.',409);
     revision++;
   }
-  const wallet=await c.db().prepare('SELECT points,primacy_tokens AS primacyTokens FROM player_profiles WHERE user_id=?').bind(user.id).first();
-  return c.json({items:inventoryItems(state),settings:state.settings,revision,points:Number(wallet?.points)||0,primacyTokens:Number(wallet?.primacyTokens)||0,demo:true});
+  const wallet=await c.db().prepare('SELECT points FROM player_profiles WHERE user_id=?').bind(user.id).first();
+  return c.json({items:inventoryItems(state),settings:state.settings,revision,points:Number(wallet?.points)||0,demo:true});
 }
