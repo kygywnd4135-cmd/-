@@ -1,0 +1,7 @@
+/* Tailwind utilities for the Figma-generated office banners only.
+   No preflight/base reset is loaded, and only app/office is scanned, so the rest of
+   the app is untouched. Utilities live in a layer, so existing unlayered CSS keeps priority. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "./";

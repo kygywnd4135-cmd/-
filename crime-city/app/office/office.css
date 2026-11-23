@@ -1,0 +1,25 @@
+/* 탐정 사무소 (gacha) screen shell. Banner art and motion come from OfficeBanner*.tsx. */
+@font-face{font-family:'Office Cinzel';src:url('/fonts/office-cinzel-700.woff2') format('woff2');font-weight:700;font-display:block}
+@font-face{font-family:'Office Press Start';src:url('/fonts/office-press-start-2p.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Office DNF BitBit';src:url('/fonts/office-dnf-bitbit-v2.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Office Noto Serif KR';src:url('/fonts/office-noto-serif-kr-a.woff2') format('woff2');font-weight:700;unicode-range:U+4E94;font-display:block}
+@font-face{font-family:'Office Noto Serif KR';src:url('/fonts/office-noto-serif-kr-b.woff2') format('woff2');font-weight:700;unicode-range:U+7B2C,U+8A71;font-display:block}
+
+.office-screen{position:fixed;inset:0;z-index:70;overflow:hidden;background:#000;user-select:none;-webkit-user-select:none}
+.office-stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;transform:translate(-50%,-50%) scale(var(--office-scale,1));transform-origin:center}
+.office-screen.is-measuring .office-stage{visibility:hidden}
+.office-scene{position:absolute;inset:0}
+.office-scene img{max-width:none}
+/* Display fonts beat the app-wide UI font override (.crime-app :not(...) {font-family !important}). */
+.crime-app .office-font-cinzel{font-family:'Office Cinzel',Georgia,serif!important;font-weight:700}
+.crime-app .office-font-heir{font-family:'Crime Heir of Light',Georgia,serif!important;font-weight:700}
+.crime-app .office-font-press{font-family:'Office Press Start',monospace!important;font-weight:400}
+.crime-app .office-font-dnf{font-family:'Office DNF BitBit','Office Press Start',monospace!important;font-weight:400}
+.crime-app .office-font-noto-serif{font-family:'Office Noto Serif KR',serif!important;font-weight:700}
+
+/* Invisible click areas laid over the generated artwork. */
+.office-hit{position:absolute;padding:0;border:0;background:transparent;cursor:pointer;border-radius:6px}
+.office-hit:focus-visible{outline:2px solid #ffffffcc;outline-offset:2px}
+.office-hit:hover{background:rgba(255,255,255,.06)}
+.office-hit.is-current{cursor:default}
+.office-hit.is-current:hover{background:transparent}
