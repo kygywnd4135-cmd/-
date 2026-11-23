@@ -93,7 +93,7 @@ def convert(node, key, index):
     code = code.replace('import { motion } from "motion/react";\n', '')
 
     # Assets: download, convert PNG to WebP, point to /assets/office/<key>/...
-    out_dir = f'{PUB}/assets/office/{key}'; os.makedirs(out_dir, exist_ok=True)
+    out_dir = f'{PUB}/assets/office/{key}'; os.makedirs(out_dir, exist_ok=True)  # final.webp = Figma still render, saved separately
     sizes = {}
     def asset(m):
         name, file = m.group(1), m.group(2)
@@ -161,7 +161,11 @@ def convert(node, key, index):
             body = body[:style_m.start()] + ((' style=' + new_style) if new_style else '') + body[s1:]
         elif snippet_style:
             body = ' style=' + snippet_style + body
-        new_opening = '<' + new_tag + ' ' + ' '.join(attrs) + body
+        # Mark animated layers so the screen can settle them back to their designed
+        # (static) values once the one-time timeline ends. "var" = the animation drives a
+        # CSS variable inside a React-owned transform, so only the variable is cleared.
+        marker = 'var' if snippet_style and re.search(r'(?<![A-Za-z])transform:', snippet_style) else '1'
+        new_opening = '<' + new_tag + ' data-motion="' + marker + '" ' + ' '.join(attrs) + body
         if close_at is not None:
             closing_len = len('</' + tag + '>')
             assert code[close_at:close_at + closing_len] == '</' + tag + '>', code[close_at:close_at + 40]
@@ -169,7 +173,24 @@ def convert(node, key, index):
         code = code[:start] + new_opening + code[tag_end:]
         applied += 1
     assert 'repeat: Infinity' not in code
+    # Figma drop shadows on unfilled layers (character art, emblems) follow the artwork's
+    # alpha. CSS box-shadow would draw a rectangle around the layer box instead, so use
+    # filter: drop-shadow there. Filled boxes (name tags, buttons) keep box-shadow.
+    def fix_shadow(m):
+        cls = m.group(1)
+        if 'inset_' in cls or re.search(r'(?:^|\s)(?:bg-|border)', cls): return m.group(0)
+        def to_drop(sm):
+            parts = sm.group(1).split('_')
+            if len(parts) == 5:  # x y blur spread color -> drop-shadow has no spread
+                x, y, blur, spread, color = parts
+                if spread not in ('0px', '0'): return sm.group(0)
+                return f'drop-shadow-[{x}_{y}_{blur}_{color}]'
+            return sm.group(0)
+        return 'className="' + re.sub(r'(?<![\w-])shadow-\[([^\]]+)\]', to_drop, cls) + '"'
+    code = re.sub(r'className="([^"]*shadow-\[[^"]*)"', fix_shadow, code)
     code = re.sub(r'export default function \w+\(\)', f'export default function OfficeBanner{index}()', code)
+    duration = max(c['durationMs'] for c in motion['timelineCohorts'])
+    code += f'\nexport const OFFICE_BANNER{index}_DURATION_MS = {duration};'
     header = ("'use client';\n// Generated from Figma by the office banner converter (node " + node.replace('-', ':') + ").\n"
               "// Animations play once on mount; remount (change key) to replay.\n"
               "import * as React from 'react';\nimport { motion } from 'motion/react';\n\n")

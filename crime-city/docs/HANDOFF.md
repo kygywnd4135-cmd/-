@@ -308,7 +308,8 @@ npm run db:check
 ## 탐정 사무소 (가챠 배너 화면, 2026-11-23)
 
 - 로비 상단 '사무소' 버튼 → 로딩 화면(사무소 이미지 205개, 약 12MB를 모두 미리 받음) → `app/office/CityOffice.tsx`. Figma 배너 4개: EP.02 아침이 오지 않는 설국(1044:96), EP.03 마법은 숨겨지지 않아!(1055:96), EP.04 리듬으로 돌아가줘!(1077:46), EP.05 죽음을 먹고 괴물이 되어라(1082:46).
-- 각 배너는 Figma 디자인 코드와 모션 키프레임을 `scripts/office-banners-from-figma.py`로 변환한 `app/office/OfficeBanner1~4.tsx`다(Tailwind 클래스 + motion/react). 사용자 요청대로 무한 반복을 끄고, 사무소 입장 때와 하단 탭으로 배너를 바꿀 때 한 번만 재생하고 마지막 키프레임에서 멈춘다. 떠다니는 꽃잎·이퀄라이저·불씨 같은 상시 효과도 마지막 키프레임 자리에 멈춘다.
+- 각 배너는 Figma 디자인 코드와 모션 키프레임을 `scripts/office-banners-from-figma.py`로 변환한 `app/office/OfficeBanner1~4.tsx`다(Tailwind 클래스 + motion/react). 사용자 요청대로 무한 반복을 끄고, 사무소 입장 때와 하단 탭으로 배너를 바꿀 때 한 번만 재생한다. 타임라인이 끝나면 0.45초 동안 Figma가 직접 렌더링한 정지 화면(`public/assets/office/epNN/final.webp`)으로 교차 전환해 멈춘다. 그래서 정지 화면은 Figma와 같다(상시 효과가 마지막 키프레임에 어색하게 멈추거나 레이어 차이가 남는 문제 해결). Figma 배너를 고치면 final.webp도 get_screenshot으로 다시 받아야 한다.
+- 배경 없는 레이어(캐릭터 원화 등)의 Figma 그림자는 윤곽을 따라가므로 CSS `drop-shadow`로 변환한다. box-shadow로 두면 캐릭터 둘레에 네모 빛 박스가 생긴다(2026-11-23 사용자 지적).
 - Tailwind는 사무소 전용이다: `app/office/office-tw.css`가 preflight 없이 theme/utilities 레이어만 불러오고 app/office만 스캔한다. 레이어라서 기존 CSS가 항상 우선한다.
 - 배너 전용 글꼴(Cinzel, Press Start 2P, DNF BitBit v2, Noto Serif KR)은 쓰인 글자만 남긴 1~3KB woff2(`public/fonts/office-*`). 글자를 바꾸면 다시 서브셋해야 한다.
 - 뽑기(1회/10회 소환), 확률정보, 뽑기 기록, 재화 충전, 우편함, 설정은 아직 구현하지 않았다(사용자 지시). 누르면 '준비 중' 안내만 뜬다. ESC·뒤로·홈 아이콘은 로비로, ←→는 배너 전환.

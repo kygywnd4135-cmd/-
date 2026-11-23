@@ -10,6 +10,8 @@
 .office-screen.is-measuring .office-stage{visibility:hidden}
 .office-scene{position:absolute;inset:0}
 .office-scene img{max-width:none}
+.office-final{position:absolute;left:0;top:0;width:1920px;height:1080px;max-width:none;opacity:0;pointer-events:none;transition:opacity .45s ease}
+.office-final.is-shown{opacity:1}
 /* Display fonts beat the app-wide UI font override (.crime-app :not(...) {font-family !important}). */
 .crime-app .office-font-cinzel{font-family:'Office Cinzel',Georgia,serif!important;font-weight:700}
 .crime-app .office-font-heir{font-family:'Crime Heir of Light',Georgia,serif!important;font-weight:700}

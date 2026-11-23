@@ -1,20 +1,28 @@
 'use client';
-import {useEffect,useLayoutEffect,useState,type CSSProperties,type ComponentType} from 'react';
-import OfficeBanner1 from './OfficeBanner1';
-import OfficeBanner2 from './OfficeBanner2';
-import OfficeBanner3 from './OfficeBanner3';
-import OfficeBanner4 from './OfficeBanner4';
+import {memo,useEffect,useLayoutEffect,useState,type CSSProperties,type ComponentType} from 'react';
+import OfficeBanner1,{OFFICE_BANNER1_DURATION_MS} from './OfficeBanner1';
+import OfficeBanner2,{OFFICE_BANNER2_DURATION_MS} from './OfficeBanner2';
+import OfficeBanner3,{OFFICE_BANNER3_DURATION_MS} from './OfficeBanner3';
+import OfficeBanner4,{OFFICE_BANNER4_DURATION_MS} from './OfficeBanner4';
 
 // 탐정 사무소 (gacha) screen. Each banner is a Figma frame converted to code
 // (가챠배너 1044:96, 1055:96, 1077:46, 1082:46). Its entrance animation plays once
 // when the screen opens or the banner changes. Summoning is not implemented yet.
 
-const BANNERS:{title:string;Scene:ComponentType}[]=[
- {title:'아침이 오지 않는 설국',Scene:OfficeBanner1},
- {title:'마법은 숨겨지지 않아!',Scene:OfficeBanner2},
- {title:'리듬으로 돌아가줘!',Scene:OfficeBanner3},
- {title:'죽음을 먹고 괴물이 되어라',Scene:OfficeBanner4},
+// final = Figma's own still render of the frame: the screen rests on it after the
+// entrance so the resting banner is exactly the design.
+const BANNERS:{title:string;Scene:ComponentType;duration:number;final:string}[]=[
+ {title:'아침이 오지 않는 설국',Scene:OfficeBanner1,duration:OFFICE_BANNER1_DURATION_MS,final:'/assets/office/ep02/final.webp'},
+ {title:'마법은 숨겨지지 않아!',Scene:OfficeBanner2,duration:OFFICE_BANNER2_DURATION_MS,final:'/assets/office/ep03/final.webp'},
+ {title:'리듬으로 돌아가줘!',Scene:OfficeBanner3,duration:OFFICE_BANNER3_DURATION_MS,final:'/assets/office/ep04/final.webp'},
+ {title:'죽음을 먹고 괴물이 되어라',Scene:OfficeBanner4,duration:OFFICE_BANNER4_DURATION_MS,final:'/assets/office/ep05/final.webp'},
 ];
+const REST_FADE_MS=450;
+
+// The lobby underneath re-renders every few seconds (chat/room polling); keep the animated
+// banner out of those renders so its one-time timeline is never disturbed.
+const SceneHost=memo(function SceneHost({index}:{index:number}){const {Scene}=BANNERS[index];return <Scene/>;});
+
 const NOT_READY='아직 준비 중인 기능이에요.';
 
 // Bottom tab strip: the selected tab is 303px wide, the others 231px, 24px apart from x=80.
@@ -42,12 +50,20 @@ export default function CityOffice({onClose,notify}:{onClose:()=>void;notify:(te
   window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);
  },[onClose]);
 
- const {Scene}=BANNERS[banner];
+ // 'play' → animated entrance, 'resting' → fading into the still render, 'rested' → still only.
+ const[stage,setStage]=useState<'play'|'resting'|'rested'>('play');
+ useEffect(()=>{
+  setStage('play');
+  const a=setTimeout(()=>setStage('resting'),BANNERS[banner].duration+60);
+  const b=setTimeout(()=>setStage('rested'),BANNERS[banner].duration+60+REST_FADE_MS+50);
+  return()=>{clearTimeout(a);clearTimeout(b);};
+ },[banner,play]);
  const tabs=tabRects(banner);
  const soon=()=>notify(NOT_READY);
  return <section className={'office-screen'+(fit===null?' is-measuring':'')} style={{'--office-scale':fit??1} as CSSProperties} role="dialog" aria-modal="true" aria-label={'탐정 사무소 · '+BANNERS[banner].title}>
   <div className="office-stage">
-   <div className="office-scene" key={banner+'-'+play}><Scene/></div>
+   {stage!=='rested'&&<div className="office-scene" key={banner+'-'+play}><SceneHost index={banner}/></div>}
+   <img className={'office-final'+(stage==='play'?'':' is-shown')} key={'final-'+banner+'-'+play} src={BANNERS[banner].final} alt="" draggable={false}/>
    <button className="office-hit" style={px({left:14,top:18,width:300,height:66})} aria-label="뒤로가기" onClick={onClose}/>
    <button className="office-hit" style={px({left:1329,top:25,width:290,height:60})} aria-label="재화 충전" onClick={soon}/>
    <button className="office-hit" style={px({left:1650,top:28,width:60,height:52})} aria-label="우편함" onClick={soon}/>
