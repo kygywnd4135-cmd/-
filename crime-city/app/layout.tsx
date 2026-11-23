@@ -22,6 +22,7 @@ import "./interactions.css";
 import "./start.css";
 import "./story.css";
 import "./loading.css";
+import "./office.css";
 import "./ui-scale.css";
 
 export const metadata: Metadata = {
