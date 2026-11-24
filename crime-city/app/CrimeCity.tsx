@@ -69,22 +69,24 @@ export default function CrimeCity(){
  useEffect(()=>{let live=true;async function init(){try{const data=await refreshMe();const code=new URLSearchParams(location.search).get('room');if(code){const r=await cityApi('rooms/'+code+'/info');if(data.user&&!needsNickname(data.user)){if(r.locked){setJoinTarget(r);setModal('join');}else doJoin(r.id);}else{pending.current=()=>{if(r.locked){setJoinTarget(r);setModal('join');}else doJoin(r.id);};if(data.user)openStory();else setModal('auth');}}const error=new URLSearchParams(location.search).get('auth_error');if(error){notify(error==='configuration'?'Google 로그인은 아직 연결 준비 중입니다.':'Google 로그인을 완료하지 못했습니다. 다시 시도해 주세요.');window.history.replaceState(null,'','/');}if(new URLSearchParams(location.search).get('welcome')==='google'){notify('Google 로그인에 성공했습니다.');setModal('');if(needsNickname(data.user))openStory();window.history.replaceState(null,'','/');}}catch{setConnected(false);}finally{if(live)setLoaded(true);}}const boot=init();loader.load(['start'],[()=>boot],{initial:true});cityApi('auth/providers').then(d=>setGoogleReady(d.google)).catch(()=>{});{const m=localStorage.getItem('crime-music');setMusic(m===null?40:Number(m)||0);}setEffects(Number(localStorage.getItem('crime-effects'))||0);return()=>{live=false;audio.current?.close();if(transition.current)clearTimeout(transition.current);};},[]);
  useEffect(()=>{if(!nicknameNotice)return;const id=setTimeout(()=>setNicknameNotice(''),3500);return()=>clearTimeout(id);},[nicknameNotice]);
  useEffect(()=>{if(!toast)return;const id=setTimeout(()=>setToast(''),4000);return()=>clearTimeout(id);},[toast]);
- // Lobby BGM (user's track): loops while in the main lobby, stops in game rooms and elsewhere.
+ // Background music (user's tracks): the lobby track loops in the main lobby and resumes where it
+ // left off; inside 사무소 the office track plays from the start instead. Nothing plays in game rooms.
  // Browsers block sound until the first interaction, so playback retries on the first input.
- const lobbyMusic=useRef<HTMLAudioElement|null>(null);
- const inLobby=screen==='lobby'&&!room;
+ const tracks=useRef<Record<string,HTMLAudioElement>>({});
+ const track=screen==='lobby'&&!room?(modal==='office'?'office':'lobby'):'';
+ const trackAudio=(name:string)=>{let el=tracks.current[name];if(!el){el=new Audio('/audio/'+name+'-theme.mp3');el.loop=true;el.preload='auto';tracks.current[name]=el;}return el;};
  useEffect(()=>{
-  if(!inLobby)return;
-  let el=lobbyMusic.current;
-  if(!el){el=new Audio('/audio/lobby-theme.mp3');el.loop=true;el.preload='auto';lobbyMusic.current=el;}
-  const a=el;a.volume=Math.min(1,Math.max(0,music/100));
+  if(!track)return;
+  if(track==='lobby')trackAudio('office');// buffer the office track while in the lobby
+  const a=trackAudio(track);a.volume=Math.min(1,Math.max(0,music/100));
+  if(track==='office')a.currentTime=0;
   const start=()=>{if(a.volume>0)a.play().then(remove).catch(()=>{});};
   const remove=()=>{window.removeEventListener('pointerdown',start);window.removeEventListener('keydown',start);};
   window.addEventListener('pointerdown',start);window.addEventListener('keydown',start);start();
   return()=>{remove();a.pause();};
- },[inLobby]);
- useEffect(()=>{const a=lobbyMusic.current;if(!a)return;a.volume=Math.min(1,Math.max(0,music/100));if(music>0&&inLobby&&a.paused)a.play().catch(()=>{});},[music]);
- useEffect(()=>()=>{const a=lobbyMusic.current;if(a){a.pause();a.src='';}},[]);
+ },[track]);
+ useEffect(()=>{const a=track?tracks.current[track]:null;Object.values(tracks.current).forEach(el=>{el.volume=Math.min(1,Math.max(0,music/100));});if(a&&music>0&&a.paused)a.play().catch(()=>{});},[music]);
+ useEffect(()=>()=>{Object.values(tracks.current).forEach(el=>{el.pause();el.src='';});},[]);
  // Office art (~12MB) is fetched quietly once the lobby is up, so 사무소 opens instantly later.
  useEffect(()=>{if(screen!=='lobby')return;const id=setTimeout(()=>prefetchSection('office'),1500);return()=>clearTimeout(id);},[screen]);
  useEffect(()=>{if(screen!=='lobby'||room)return;refreshRooms();const id=setInterval(refreshRooms,5000);return()=>clearInterval(id);},[screen,room?.id]);
