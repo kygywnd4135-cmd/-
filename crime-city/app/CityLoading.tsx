@@ -12,7 +12,14 @@ const TASK_WEIGHT=60_000;// bytes-equivalent weight of one data request
 const ready=new Set<LoadSection>();
 const keep:HTMLImageElement[]=[];// keep decoded images alive so the browser does not drop them
 
+// One download per file, shared by the loading screen and background prefetching.
+const images=new Map<string,Promise<void>>();
 function loadImage(url:string){
+ let p=images.get(url);
+ if(!p){p=fetchImage(url);images.set(url,p);}
+ return p;
+}
+function fetchImage(url:string){
  return new Promise<void>(resolve=>{
   const img=new Image();img.decoding='async';
   img.onload=()=>{(img.decode?img.decode():Promise.resolve()).catch(()=>{}).then(()=>{keep.push(img);resolve();});};
@@ -23,6 +30,19 @@ function loadImage(url:string){
 async function loadFonts(){
  if(typeof document==='undefined'||!document.fonts)return;
  await Promise.all([document.fonts.load("700 37px 'SUITE Variable'"),document.fonts.load("800 45px 'SUITE Variable'")]).catch(()=>{});
+}
+
+// Quietly downloads a section in the background (few files at a time, only while the browser
+// is idle) so it later opens without a loading screen. If the user opens it first, load() reuses
+// whatever is already downloaded and shows the loading screen only for the rest.
+const prefetching=new Set<LoadSection>();
+const idle=()=>new Promise<void>(r=>{const w=window as any;if(w.requestIdleCallback)w.requestIdleCallback(()=>r(),{timeout:800});else setTimeout(r,60);});
+export function prefetchSection(section:LoadSection,parallel=2){
+ if(typeof window==='undefined'||ready.has(section)||prefetching.has(section))return;
+ prefetching.add(section);
+ const queue=[...ASSET_MANIFEST[section]];
+ const worker=async()=>{for(let f=queue.shift();f;f=queue.shift()){await idle();await loadImage(f[0]);}};
+ Promise.all(Array.from({length:parallel},worker)).then(()=>{ready.add(section);prefetching.delete(section);});
 }
 
 export function useCityLoader(){
