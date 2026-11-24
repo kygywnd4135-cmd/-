@@ -325,3 +325,12 @@ npm run db:check
 - 3번째 탭 '시즌 1 스토리 회고록 : 저 너머의 그대에게'는 디자인이 아직 없다. 누르면 '아직 준비 중인 이벤트예요.' 안내만 뜬다. 사용자가 Figma를 보내면 BANNERS에 추가한다.
 - 배너2 카드 영역은 Figma가 직접 렌더링한 이미지(`public/assets/event/b2/card-still.webp`)를 변환 레이어 위에 덮는다. Figma 내보내기의 마스크 좌표가 틀리고(변환 스크립트 MASK_FIX로 일부 보정), 리본의 디더 셰이더(@figma/expressive-components ShaderEffect)는 WebGPU + HTML-in-Canvas가 필요해 현재 브라우저에서 돌지 않기 때문이다. 배너를 다시 변환하면 card-still.webp도 get_screenshot(1141:211) 렌더에서 다시 잘라야 한다.
 - Tailwind 범위(`app/office/office-tw.css`)에 app/event도 포함한다. preflight가 없으므로 배너 안 ul/ol 기본 여백은 `app/event/event.css`에서 0으로 맞춘다(안 하면 캡션이 40px 밀린다).
+
+## 자동 제작 알림/대화창 크기 (2026-11-24)
+
+- 사용자가 디자인을 준 화면이 아닌, 자동으로 만든 UI는 데스크톱에서 너무 작다는 지적이 있었다. 대상은 '준비 중'·새로고침 같은 하단 알림(.city-toast, .city-nickname-toast, .inventory-toast)과 공용 <Modal> 대화창이다. `app/ui-scale.css`가 창 크기별로 zoom을 준다.
+  - 1600×900 이상: 알림 2.4배, 대화창 1.6배(방 만들기 창이 1080 화면 안에 들어오는 최대치)
+  - 1200×700 이상: 알림 1.9배, 대화창 1.4배
+  - 900×600 이상: 알림 1.5배, 대화창 1.3배
+  - 휴대폰: 그대로
+- 인벤토리 알림은 원래 16px이라 절반만 키운다. Figma/PDF로 디자인된 화면(닉네임 경고, 친구 피드백 등)은 건드리지 않는다.
