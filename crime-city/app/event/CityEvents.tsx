@@ -15,7 +15,8 @@ const BANNERS:{title:string;Banner:ComponentType;card?:Card}[]=[
  {title:'시즌 1 한정 레전드리 가챠 이벤트',Banner:EventBanner2,card:{src:'/assets/event/b2/card-still.webp',left:133,top:127,width:1654,height:669}},
 ];
 const THIRD_TITLE='시즌 1 스토리 회고록 : 저 너머의 그대에게';
-const GLITCH_MS=500,SWAP_AT_MS=220,CLOSE_MS=320;
+// Only the illustration frame glitches (user request): a clipped copy of the banner over it.
+const GLITCH_MS=300,SWAP_AT_MS=130,CLOSE_MS=320;
 const NOT_READY='아직 준비 중인 이벤트예요.';
 
 // Keep banner art out of the lobby's polling re-renders.
@@ -59,6 +60,8 @@ export default function CityEvents({onClose,notify}:{onClose:()=>void;notify:(te
   <div className="event-stage">
    <div className={'event-content'+(glitching?' is-glitching':'')}>
     <div className="event-banner"><BannerHost index={shown}/></div>
+    <div className="event-glitch-frame" aria-hidden="true"><div className="event-glitch-art"><BannerHost index={shown}/></div></div>
+    <div className="event-thumb-ring" aria-hidden="true" style={{left:thumbs[target].left}}/>
     <button className="event-hit" style={px({left:36,top:26,width:205,height:62})} aria-label="이벤트 닫기" onClick={close}/>
     <button className="event-hit" style={px({left:38,top:410,width:70,height:105})} aria-label="이전 이벤트" onClick={()=>go(target-1)}/>
     <button className="event-hit" style={px({left:1812,top:410,width:70,height:105})} aria-label="다음 이벤트" onClick={()=>go(target+1)}/>

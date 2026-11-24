@@ -44,7 +44,7 @@ export default function CrimeCity(){
  const loader=useCityLoader();
  // Every screen waits for its assets (and first data) before it appears.
  async function openStory(){await loader.load(['story']);changeScreen('story');}
- async function enterLobby(){await loader.load(['lobby'],[()=>refreshRooms(),()=>cityApi('lobby/chat').then((d:any)=>setMessages(d.messages)).catch(()=>{})]);changeScreen('lobby');}
+ async function enterLobby(){await loader.load(['lobby','event'],[()=>refreshRooms(),()=>cityApi('lobby/chat').then((d:any)=>setMessages(d.messages)).catch(()=>{})]);changeScreen('lobby');}
  async function refreshMe(){const data=await cityApi('me');const next=levelSnapshot(data.user),before=lastLevel.current;const advance=levelAdvance(before,next);if(advance)setLevelUp(current=>({from:current?.from??advance.from,to:Math.max(current?.to??0,advance.to)}));lastLevel.current=before&&next&&before.userId===next.userId&&before.level>next.level?before:next;if(!data.user){setLevelUp(null);setLevelPreview(null);}setUser(data.user);setHistory(data.history||[]);setActiveRoom(data.activeRoom);setConnected(true);return data;}
  async function refreshRooms(){try{const data=await cityApi('rooms');setRooms(data.rooms.filter((r:any)=>!r.demo));setConnected(true);}catch{setConnected(false);}}
  function changeScreen(next:string){if(transition.current)clearTimeout(transition.current);setVeil(true);transition.current=setTimeout(()=>{setScreen(next);setVeil(false);},220);}
