@@ -13,11 +13,11 @@
 .office-final{position:absolute;left:0;top:0;width:1920px;height:1080px;max-width:none;opacity:0;pointer-events:none;transition:opacity .45s ease}
 .office-final.is-shown{opacity:1}
 /* Display fonts beat the app-wide UI font override (.crime-app :not(...) {font-family !important}). */
-.crime-app .office-font-cinzel{font-family:'Office Cinzel',Georgia,serif!important;font-weight:700}
-.crime-app .office-font-heir{font-family:'Crime Heir of Light',Georgia,serif!important;font-weight:700}
-.crime-app .office-font-press{font-family:'Office Press Start',monospace!important;font-weight:400}
-.crime-app .office-font-dnf{font-family:'Office DNF BitBit','Office Press Start',monospace!important;font-weight:400}
-.crime-app .office-font-noto-serif{font-family:'Office Noto Serif KR',serif!important;font-weight:700}
+.crime-app .office-font-cinzel,.crime-app .office-font-cinzel *{font-family:'Office Cinzel',Georgia,serif!important;font-weight:700}
+.crime-app .office-font-heir,.crime-app .office-font-heir *{font-family:'Crime Heir of Light',Georgia,serif!important;font-weight:700}
+.crime-app .office-font-press,.crime-app .office-font-press *{font-family:'Office Press Start',monospace!important;font-weight:400}
+.crime-app .office-font-dnf,.crime-app .office-font-dnf *{font-family:'Office DNF BitBit','Office Press Start',monospace!important;font-weight:400}
+.crime-app .office-font-noto-serif,.crime-app .office-font-noto-serif *{font-family:'Office Noto Serif KR',serif!important;font-weight:700}
 
 /* Invisible click areas laid over the generated artwork. */
 .office-hit{position:absolute;padding:0;border:0;background:transparent;cursor:pointer;border-radius:6px}
@@ -25,3 +25,4 @@
 .office-hit:hover{background:rgba(255,255,255,.06)}
 .office-hit.is-current{cursor:default}
 .office-hit.is-current:hover{background:transparent}
+.crime-app .office-font-heir-regular,.crime-app .office-font-heir-regular *{font-family:'Crime Heir of Light',Georgia,serif!important;font-weight:400}
